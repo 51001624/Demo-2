@@ -221,7 +221,7 @@ class Ho_so extends CI_Model {
     return $array;
     }
 	public function add_ho_so($data){
-	$this->db->insert('ho_so', $data);
+	    $this->db->insert('ho_so', $data);
     }
 
     public  function list_all($number, $offset){

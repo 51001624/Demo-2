@@ -77,6 +77,8 @@
                  ->where('mcb',($_SESSION['ma_can_bo']))->count_all_results('ho_so').'</span></a></li>';
             echo '<li><a href="'.base_url('admin/thong_ke').'">
                   <i class="fa fa-bar-chart-o  fa-fw"></i> Thống kê </a></li>';
+            echo '<li><a href="'.base_url('admin/phan_cong').'">
+                  <i class="fa fa-calendar  fa-fw"></i> Phân công </a></li>';
         }
         if((isset($_SESSION['name_user']))&&($_SESSION['level']==22)){
             echo '<li><a href="'.base_url('admin/admin_phong_ban').'">

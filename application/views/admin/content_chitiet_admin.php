@@ -45,7 +45,7 @@
 
     <?php
     $attributes = array('class'=>'form-horizontal');
-    echo form_open(''.base_url().'Trang_chi_tiet', $attributes);?>
+    echo form_open(''.base_url().'Tu_phap_chi_tiet', $attributes);?>
     <div class="panel panel-info">
         <div class="panel-heading">
             <h4 class="panel-title">Thông tin của người làm hồ sơ </h4>
@@ -105,7 +105,7 @@
                             <label>Số ngày giải quyết </label>
                         </div>
                         <div class="col-xs-1 col-sm-1 col-md-1 col-lg-1">
-                            <input class="form-control" id="songay" onBlur="doMacBookPro();" type="lable" name="songay" >
+                            <input class="form-control" id="songay" onkeyup="doMacBookPro();" type="lable" name="songay" >
                         </div>
                         <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
                             <div class="error"><span class="error">* <?php echo form_error('songay'); ?></span></div>
@@ -157,7 +157,7 @@
                                 <tr id="2015">
                                     <td class=" col-md-1"><input class="lovecheckbox"type="checkbox"  name="chk_group" id= <?php echo $checkBox?> onclick="display(<?php echo $i ?>)" value="<?php echo $arrayThutuc[$i];?>"></td>
                                     <td class="col-md-9"><label style="font-weight: normal;"><?php echo $arrayThutuc[$i]?></label></td>
-                                    <td class="col-md-2"><input  class=" lovetextbox form-control"  id = <?php echo $number ?> type="number" min="0" max="30" step="1" value="0" size="1"></td>
+                                    <td class="col-md-2"><input  class=" lovetextbox form-control"  id = <?php echo $number ?> type="number" min="0" onkeyup="forIndividualCase(<?php echo $i ?>)" onchange="forIndividualCaseChanged(<?php echo $i ?>)" max="30" step="1" value="0" size="1"></td>
                                 </tr>
                 <?php } ?>
             <?php } ?>
@@ -194,7 +194,7 @@
                         <label>Số bản:</label>
                     </div>
                     <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
-                        <input  class="form-control" id="sobang" name="sobang" onBlur="doMath();" type="text"  placeholder="Nhập số bản  ">
+                        <input  class="form-control" id="sobang" name="sobang" onkeyup="doMath()" type="text"  placeholder="Nhập số bản  ">
                      </div>
 
                     <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">

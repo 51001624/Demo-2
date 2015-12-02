@@ -32,7 +32,6 @@
 
     }
     ?>
-
             <form class="form-horizontal"  method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
 
                 <div class="panel panel-info">
@@ -94,12 +93,11 @@
                                 <label>Số ngày giải quyết </label>
                             </div>
                             <div class="col-xs-1 col-sm-1 col-md-1 col-lg-1">
-                                <input class="form-control" id="songay" onBlur="doMacBookPro();" type="lable" name="songay" >
+                                <input class="form-control" id="songay" onkeyup="doMacBookPro();" type="lable" name="songay" >
                             </div>
                             <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
                                 <div class="error"><span class="error">* <?php echo form_error('songay'); ?></span></div>
                             </div>
-
 
                         </div>
                         <label></label>
@@ -147,7 +145,7 @@
                                     <tr id="2015">
                                         <td class=" col-md-1"><input class="lovecheckbox"type="checkbox"  name="chk_group" id= <?php echo $checkBox?> onclick="display(<?php echo $i ?>)" value="<?php echo $arrayThutuc[$i];?>"></td>
                                         <td class="col-md-9"><label style="font-weight: normal;"><?php echo $arrayThutuc[$i]?></label></td>
-                                        <td class="col-md-2"><input  class=" lovetextbox form-control"  id = <?php echo $number ?> type="number" min="0" max="30" step="1" value="0" size="1"></td>
+                                        <td class="col-md-2"><input  class=" lovetextbox form-control"  id = <?php echo $number ?> type="number" min="0" max="30" onkeyup="forIndividualCase(<?php echo $i ?>)" onchange="forIndividualCaseChanged(<?php echo $i ?>)" step="1" value="0" size="1"></td>
                                     </tr>
                                 <?php } ?>
                             <?php } ?>
