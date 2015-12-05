@@ -27,6 +27,8 @@
 <script src="<?php echo base_url(); ?>js/bootbox.min.js"></script>
 <script src="<?php echo base_url(); ?>js/moment.min.js"></script>
 <script src="<?php echo base_url(); ?>js/fullcalendar.min.js"></script>
+<script src="<?php echo base_url(); ?>js/bootstrap-datetimepicker.js"></script>
+
 
 <script>
     $('.Start_noti').on('click',function(){

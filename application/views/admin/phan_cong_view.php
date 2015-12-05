@@ -17,17 +17,48 @@
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span> <span class="sr-only">close</span></button>
                 <h4 id="modalTitle" class="modal-title"></h4>
-            </div>
-            <div id="modalBody" class="modal-body">
-            </div>
+            </div><!--header-->
+            <form id="taskForm">
+                <div id="modalBody" class="modal-body">
+                    <div class="containter">
+                        <div class="row">
+                            <div class="col-xs-3">
+                                <label>Tên công việc:</label>
+                            </div>
+                            <div class="col-xs-9">
+                                <input id = "Hello"type="text" name="task" class="form-control">
+                            </div>
+                        </div>
+
+                        <div class="row " style="margin-top: 5px;">
+                            <div class="col-xs-3">
+                                <label>Bắt đầu </label>
+                            </div>
+                            <div class="col-xs-9">
+                                <input type="text" id="datetimepickerStart" class="form-control">
+                            </div>
+                        </div>
+
+                        <div class="row " style="margin-top: 5px;">
+                            <div class="col-xs-3">
+                                <label>Kết thúc </label>
+                            </div>
+                            <div class="col-xs-9">
+                                <input type="text" id="datetimepickerEnd"  class="form-control">
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div><!--End modal body -->
+            </form>
             <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                <button class="btn btn-primary"><a id="eventUrl" target="_blank">Event Page</a></button>
-            </div>
+                <button type="button" class="btn btn-default" data-dismiss="modal">Đóng</button>
+                <button class="btn btn-success" id="submit">Nhập</button>
+            </div><!--Footer -->
         </div>
     </div>
-</div>
-
+</div><!--end modal-->
 
 <input type="text"  id="base_html" value="<?php echo base_url();?>" style="visibility: hidden;">
 <script type="text/javascript">
@@ -37,6 +68,52 @@
     var linkDelete = mylink+"admin/phan_cong/deleteCongViec";
     var linkUpdate = mylink+"admin/phan_cong/updateCongViec";
 
+    console.log($('#taskForm'));
+
+    $.fn.goValidate = function(){
+        var form = this,
+            input = form.find('input:text');
+        var validate = function(klass,value){
+            var isValid = true,
+                error = '';
+            if(!value&&/required/.test(klass)){
+                error="Công việc chưa nhập;"
+                isValid = false;
+            }
+            return{
+                isValid: isValid,
+                error:error
+            }
+        };
+
+        var showError = function(input){
+            var klass = input.attr('class'),
+                value = input.val(),
+                test = validate(klass,value);
+            input.removeClass('invalid');
+            $('#form-error').addClass('hide');
+            if(!test.isValid){
+                input.addClass('invalid');
+                if(typeof input.data("shown")=="undefined"||input.data("shown") == false){
+                    input.popover('show');
+                }else{
+                    input.popover('hide');
+                }
+            }
+        };
+        input.keyup(function(){
+            showError($(this));
+        }) ;
+
+        form.submit(function(e){
+            inputs.each(function() { /* test each input */
+                if ($(this).is('.required') || $(this).hasClass('invalid')) {
+                    showError($(this));
+                }
+            });
+        });
+        return this;
+    };
 
 
 
@@ -89,44 +166,50 @@
          },
 
          eventClick: function(event) {
-             /*$('#modalTitle').html("Sửa tên công việc ");
-             $('#modalBody').html("<div class=\"row\"> <div class=\"col-md-3\"> <lable>Tên công việc:</lable> </div> <div class=\"col-md-8\"> <input type='input' id=\"loe\" class='form-control'> </div></div>");
-             $('#fullCalModal').modal();*/
-             var title = prompt('Sửa tên công việc :', event.title, { buttons: { Ok: true, Cancel: false} });
-             if (title){
+             $('#modalTitle').html("Sửa tên công việc ");
+             $('#fullCalModal').modal();
+             $('#datetimepickerStart').datetimepicker({
+                 sideBySide: true,
+                 format: 'DD-MM-YYYY-HH-mm'
+             });
+             $('#datetimepickerEnd').datetimepicker({
+                 sideBySide: true,
+                 format: 'DD-MM-YYYY-HH-mm'
+             });
 
-                // var mything = document.getElementById('loe').value;
+                 $("button#submit").click(function(){
+                     var k = document.getElementById('Hello').value;
+                     $.post(linkUpdate,
+                         { // Data Sending With Request To Server
+                             myTitle: k,
+                             myID: event.id
+
+                         },
+                         function (response) { // RequireCallback Function
+                             //var myData = JSON.parse(response);
+                             calendar.fullCalendar("removeEvents", event.id);
+                             var myData=JSON.parse(response);
+                             title = myData[0].title;
+                             start = myData[0].start;
+                             id = myData[0].id;
+                             end= myData[0].end;
+                             calendar.fullCalendar('renderEvent',
+                                 {
+                                     title: title,
+                                     start: start,
+                                     id:id,
+                                     allDay:false,
+                                     end: end
+                                 },
+                                 true // make the event "stick"
+                             );
+                         }
+                     );
+
+                     $("#fullCalModal").modal('hide');
+                 });
 
 
-                 $.post(linkUpdate,
-                     { // Data Sending With Request To Server
-                         myTitle: title,
-                         myID: event.id
-
-                     },
-                     function (response) { // RequireCallback Function
-                         //var myData = JSON.parse(response);
-                          calendar.fullCalendar("removeEvents", event.id);
-                         var myData=JSON.parse(response);
-                         title = myData[0].title;
-                         start = myData[0].start;
-                         id = myData[0].id;
-                         end= myData[0].end;
-                         calendar.fullCalendar('renderEvent',
-                             {
-                                 title: title,
-                                 start: start,
-                                 id:id,
-                                 allDay:false,
-                                 end: end
-                             },
-                             true // make the event "stick"
-                         );
-                     }
-                 );
-
-
-             }
          },
 
          selectable: true,
@@ -136,44 +219,92 @@
          eventLimit: true,
          events: JSON.parse(json_events),
 
-            select: function(startDate, endDate) {
 
-                var title = prompt('Nhập tên công việc :');
-                var start = startDate.format();
-                var end = endDate.format();
+        select: function(start,end) {
+
+            $('#modalTitle').html("Sửa tên công việc ");
+            $('#fullCalModal').modal();
+
+            $('#datetimepickerStart').datetimepicker({
+                sideBySide: true,
+                format: 'DD-MM-YYYY HH:mm'
+            });
+
+            $('#datetimepickerEnd').datetimepicker({
+                sideBySide: true,
+                format: 'DD-MM-YYYY HH-mm'
+            });
 
 
-                if (title) {
-                    id = id+1;
-                    calendar.fullCalendar('renderEvent',
-                        {
-                            title: title,
-                            start: start,
-                            id: id,
-                            allDay:false,
-                            end: end
-                        },
-                        true // make the event "stick"
-                    );
-                    $.post(link1,
-                        { // Data Sending With Request To Server
-                            myTitle: title,
-                            startDate: start,
-                            myID: id,
-                            allDay:false,
-                            endDate: end
 
-                        },
-                        function (response) { // RequireCallback Function
-                            //var myData = JSON.parse(response);
-                            // calendar.fullCalendar("removeEvents", event.id);
+            $('#taskForm').goValidate();
 
-                        }
-                    );
-                }
-                calendar.fullCalendar('unselect');
 
-            },
+
+
+            /*   $('#taskForm').formValidation({
+                   framework: 'bootstrap',
+                   fields:{
+                       task:{
+                           validators:{
+                               notEmpty:{
+                                   message:'Tên công việc chưa nhập!'
+                               }
+                           }
+                       }
+                   }
+               });*/
+
+            document.getElementById('Hello').value="";
+            document.getElementById('datetimepickerStart').value=start.format("DD-MM-YYYY HH:mm");
+            document.getElementById('datetimepickerEnd').value=end.format('DD-MM-YYYY HH:mm');
+
+
+            $("button#submit").click(function () {
+
+
+                var title = document.getElementById('Hello').value;
+                var startFromSource = document.getElementById('datetimepickerStart').value;
+                var endFromSource = document.getElementById('datetimepickerEnd').value;
+                var start =startFromSource.substr(6,4)+"-"+startFromSource.substr(3,2)
+                    +"-"+startFromSource.substr(0,2)+"T"
+                    +startFromSource.substr(11,5)+":00";
+                var end =endFromSource.substr(6,4)+"-"+endFromSource.substr(3,2)
+                    +"-"+endFromSource.substr(0,2)+"T"
+                    +endFromSource.substr(11,5)+":00";
+
+                id = id+1;
+                calendar.fullCalendar('renderEvent',
+                    {
+                        title: title,
+                        start: start,
+                        id: id,
+                        allDay:false,
+                        end: end
+                    },
+                    true // make the event "stick"
+                );
+                $.post(link1,
+                    { // Data Sending With Request To Server
+                        myTitle: title,
+                        startDate: start,
+                        myID: id,
+                        allDay:false,
+                        endDate: end
+
+                    },
+                    function (response) { // RequireCallback Function
+                        //var myData = JSON.parse(response);
+                        // calendar.fullCalendar("removeEvents", event.id);
+
+                    }
+                );
+            calendar.fullCalendar('unselect');
+
+                $("#fullCalModal").modal('hide');
+            });
+        },
+
          eventRender: function(event, element) {
              element.append( "<span  class='closeon'>X</span>" );
              element.find(".closeon").click(function() {
@@ -194,8 +325,6 @@
 
                      );
                  }
-
-
              });
          }
 
