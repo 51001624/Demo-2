@@ -1,0 +1,99 @@
+<?php
+defined('BASEPATH') OR exit('No direct script access allowed');
+
+class Phan_cong extends CI_Controller
+{
+
+    public function __construct()
+    {
+        parent::__construct();
+
+        if ((!isset($_SESSION['name_user'])) ||
+            (($_SESSION['level'] != 12) &&
+                ($_SESSION['level'] != 13) &&
+                ($_SESSION['level'] != 21) &&
+                ($_SESSION['level'] != 22) &&
+                ($_SESSION['level'] != 100))
+        ) {
+            redirect(base_url('trang_chu'));
+        }
+
+    }
+
+    public function index()
+    {
+
+        $data['title'] = 'Thống kê - UBND Huyện Bến Lức';
+        $this->load->view('templates/header', $data);
+        $this->load->view('templates/aside');
+        $this->load->view('templates/nav');
+        $this->load->view('admin/phan_cong_view');
+        $this->load->view('templates/footer');
+    }
+
+    public function getCongViec(){
+
+        $query = $this->db->get('calendar');
+        $events = array();
+        foreach($query->result_array() as $row )
+        {
+            $array = array();
+            $array['title'] = $row['title'];
+            $array['start'] = $row['startdate'];
+            $array['end'] = $row['enddate'];
+            $array['id']=$row['id'];
+            array_push($events,$array);
+
+        }
+
+        echo json_encode($events);
+
+    }
+
+    public function deleteCongViec(){
+        $deletedID = $_POST['myID'];
+        $this->db->where('id',$deletedID);
+        $this->db->delete('calendar');
+        $lastid = $this->db->insert_id();
+        echo json_encode(array('status'=>'success','eventid'=>$lastid));
+    }
+
+    public function updateCongViec(){
+        $id = $_POST['myID'];
+        $data = array(
+            'title' => $_POST['myTitle']
+        );
+
+        $this->db->where('id',$id);
+        $this->db->update('calendar',$data);
+        $this->db->where('id',$id);
+        $q = $this->db->get('calendar')->row();
+        $events = array();
+        $array['title'] = $q->title;
+        $array['start'] = $q->startdate;
+        $array['end'] = $q->enddate;
+        $array['id']=$id;
+        array_push($events,$array);
+
+
+        echo json_encode($events);
+
+
+        //echo "sussess";
+    }
+
+    public function addCongViec(){
+
+        $data1 = array('ma_can_bo'=>$_SESSION['ma_can_bo']
+        ,'title'=>$_POST['myTitle']
+        ,'startdate'=>$_POST['startDate']
+        ,'enddate'=>$_POST['endDate']
+        ,'id'=>$_POST['myID']
+        ,'allDay'=>$_POST['allDay']
+        );
+
+        $this->db->insert('calendar',$data1);
+
+
+    }
+}
