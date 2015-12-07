@@ -176,27 +176,26 @@ class Thong_ke extends CI_Controller
     {
         $level = $_SESSION['level'];
         if ($_POST['searchVal']) {
-            $searchq = $_POST['searchVal'];
+            $searchq = addslashes($_POST['searchVal']);
 
-            $searchq = strtolower($searchq);
-
+            $searchq = trim($searchq);
+            $this->db->like('node_name',$searchq);
             $q = $this->db->get('map');
 
             if ($q->num_rows() > 0) {
 
                 foreach ($q->result() as $row) {
-                    $myVar = strtolower($row->node_name);
-                    $pos = strpos($myVar, $searchq);
+
 
                     if($level==12||$level==13||$level==100){
-                        if ($pos === false || $row->p_id != 32 &&$row->p_id != 1) {
+                        if ( $row->p_id != 32 &&$row->p_id != 1) {
                         } else {
                             $this->data[] = $row;
                         }
                     }
 
                     if($level==21){
-                        if ($pos === false  ||$row->p_id != 1) {
+                        if ($row->p_id != 1) {
                         } else {
                             $this->data[] = $row;
                         }
@@ -204,7 +203,7 @@ class Thong_ke extends CI_Controller
                     }
 
                     if($level==22){
-                        if ($pos === false || $row->p_id != 32) {
+                        if ($row->p_id != 32) {
                         } else {
                             $this->data[] = $row;
                         }
@@ -220,7 +219,7 @@ class Thong_ke extends CI_Controller
             $output = "";
             if (count($q)) {
                 for ($i = 0; $i < count($this->data); $i++) {
-                        $output .= '<li class="lo"><a href=' . ($q[$i]->node_id - 1) . ' onclick="return false;">' . $q[$i]->node_name . '</a></li>';
+                    $output .= '<li class="lo"><a href=' . ($q[$i]->node_id - 1) . ' onclick="return false;">' . $q[$i]->node_name . '</a></li>';
                 }
                 echo $output;
 
@@ -229,6 +228,7 @@ class Thong_ke extends CI_Controller
             }
         }
     }
+
 
     public function day_filter()
     {

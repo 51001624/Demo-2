@@ -8,7 +8,6 @@
         <img class="marTop" src="<?php echo base_url('img/favicon.ico'); ?>" alt="">
     </a>
 </div>
-
 <div class="banner"></div>
 
 <!--Container-->

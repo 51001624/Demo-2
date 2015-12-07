@@ -48,26 +48,22 @@ function functionForSelectTag($str,$length){
                     <li ><a href="#panel-5">Theo năm </a></li>
                 </ul>
             </nav><!--end nav-->
-            <style>
-                .top-buffer { margin-top:-5%; }
-            </style>
             <div class="panel" id="panel-1">
                 <input type="hidden" id="phpVarDay" value="<?php echo $myDay; ?>">
                 <form class="container-fluid" action="<?php echo base_url('admin/thong_ke/day_filter') ?>" method="post">
-
                     <div class="row">
 
-                        <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 ">
-                            <input class=" form-control" readonly type="text" id ="datepicker1" name="datepicker1" placeholder="Từ ngày">
+                        <div class="col-xs-6  setTop col-sm-3 ">
+                            <input class="form-control" readonly type="text" id ="datepicker1" name="datepicker1" placeholder="Từ ngày">
                         </div>
 
-                        <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 ">
+                        <div class="col-xs-6 setTop col-sm-3">
                             <input class="form-control" readonly type="text" id ="datepicker2" name="datepicker2" placeholder="Đến ngày">
                         </div>
 
-                        <div class="kiet col-xs-4 col-sm-4 col-md-4 col-lg-4 ">
+                        <div class="kiet  setTop col-xs-6  col-sm-4 ">
 
-                            <li> <input type="text" id="yahooday"  class=" form-control" name="searchq" placeholder="Tìm thủ tục... " onkeydown="searchday();" ></li>
+                            <li> <input type="text" id="yahooday"  class=" form-control" name="searchq" placeholder="Tìm thủ tục... " onkeyup="searchday();" ></li>
                             <li id="outputday" class="wrapper-dropdown">
 
                             </li>
@@ -75,14 +71,11 @@ function functionForSelectTag($str,$length){
                             <input type="text" name="luachon" id="yunday" style="visibility: hidden;">
                             <input type="text"  id="base_html" value="<?php echo base_url();?>" style="visibility: hidden;">
 
-
                         </div>
-
-                        <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2 ">
+                        <div class=" col-xs-6 setTop col-sm-2 ">
                             <input class=" btn btn-info" type="submit" value="Xem thông tin" data-style="btn-primary"  >
                         </div>
                         </div>
-
 
                 </form>
             </div><!-- .panel-1-Ngay-->
@@ -90,19 +83,19 @@ function functionForSelectTag($str,$length){
                 <input type="hidden" id="phpVarWeek" value="<?php echo $myWeek; ?>">
                 <form class="container-fluid" action="<?php echo base_url('admin/thong_ke/week_filter') ?>" method="post">
                     <div class="row">
-                        <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 ">
+                        <div class="col-xs-6 setTop col-sm-3" >
                             <input  class="form-control" readonly type="text" id ="datepickerWeek" name="weekName" placeholder="Chọn ngày trong tuần " >
                         </div>
 
-                        <div class="kiet col-xs-offset-3 col-sm-offset-3 col-md-offset-3 col-lg-offset-3 col-xs-4 col-sm-4 col-md-4 col-lg-4 ">
+                        <div class="kiet setTop col-xs-7 col-sm-offset-3 col-sm-4">
 
-                            <li> <input type="text" id="yahooweek" class="form-control" name="searchweeks" placeholder="Tìm thủ tục..." onkeydown="searchweek();"></li>
+                            <li> <input type="text" id="yahooweek" class="form-control" name="searchweeks" placeholder="Tìm thủ tục..." onkeyup="searchweek();"></li>
                             <li id="outputweek" class="wrapper-dropdown"></li>
                             <input type="text" name="luachon" id="yunweek" style="visibility: hidden;">
 
                         </div>
 
-                        <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2 ">
+                        <div class="col-xs-5 setTop col-sm-2">
                             <input class=" btn btn-info" type="submit" value="Xem thông tin" data-style="btn-primary"  >
                         </div>
 
@@ -114,7 +107,7 @@ function functionForSelectTag($str,$length){
                 <input type="hidden" id="phpVarMonth" value="<?php echo $myMonth; ?>">
                 <form class="container-fluid" action="<?php echo base_url('admin/thong_ke/month_filter') ?>" method="post">
                     <div class="row">
-                        <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+                        <div class="col-xs-6 setTop col-sm-3">
                             <select name="thangName" class="selectpicker form-control " data-style="btn-success rm-relish " >
                                 <option value='#'>Chọn tháng</option>
                                 <option value='01'>Tháng 1</option>
@@ -131,17 +124,17 @@ function functionForSelectTag($str,$length){
                                 <option value='12'>Tháng 12</option>
                             </select>
                         </div>
-                        <div class=" col-xs-2 col-sm-2 col-md-2 col-lg-2">
+                        <div class="col-xs-3  setTop col-sm-2 ">
                             <input  class="form-control"   id ="myYearMonth" name="yearName" type="number" min="2015" step="1" value="2015" >
                         </div>
-                        <div class="kiet col-xs-offset-1 col-sm-offset-1 col-md-offset-1 col-lg-offset-1 col-xs-4 col-sm-4 col-md-4 col-lg-4 ">
+                        <div class="kiet col-xs-6 setTop col-sm-offset-1 col-sm-4">
 
-                            <li><input type="text" id="yahoomonth" class="form-control" name="searchmonths" placeholder="Tìm thủ tục..." onkeydown="searchmonth();"></li>
+                            <li><input type="text" id="yahoomonth" class="form-control" name="searchmonths" placeholder="Tìm thủ tục..." onkeyup="searchmonth();"></li>
                             <li id="outputmonth" class="wrapper-dropdown"></li>
                             <input type="text" name="luachon" id="yunmonth" style="visibility: hidden;">
                         </div>
 
-                        <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2 ">
+                        <div class="col-xs-6 setTop col-sm-2 ">
                             <input class=" btn btn-info" type="submit" value="Xem thông tin" data-style="btn-primary"  >
                         </div>
                     </div>
@@ -151,7 +144,7 @@ function functionForSelectTag($str,$length){
                 <input type="hidden" id="phpVarQuarter" value="<?php echo $myQuarter; ?>">
                 <form class="container-fluid" action="<?php echo base_url('admin/thong_ke/quarter_filter') ?>" method="post">
                     <div class="row">
-                        <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+                        <div class="col-xs-6 setTop col-sm-3">
                             <select name="quarter" class="selectpicker form-control "  data-style="btn-success rm-relish " >
                                 <option value=''>Chọn quý </option>
                                 <option value='1'>Quý I</option>
@@ -160,18 +153,18 @@ function functionForSelectTag($str,$length){
                                 <option value='4'>Quý IV</option>
                             </select>
                         </div>
-                        <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
+                        <div class="col-xs-3 setTop col-sm-2 ">
                             <input  class="form-control"   id ="myYearQuarter" name="yearQuarter" type="number" min="2015" step="1" value="2015" >
                         </div>
-                        <div class="kiet col-xs-offset-1 col-sm-offset-1 col-md-offset-1 col-lg-offset-1 col-xs-4 col-sm-4 col-md-4 col-lg-4 ">
+                        <div class="kiet col-xs-6 setTop col-sm-offset-1 col-sm-4 ">
 
-                            <li><input type="text" id="yahooquarter" class="form-control" name="searchquarters" placeholder="Tìm thủ tục..." onkeydown="searchquarter();"></li>
+                            <li><input type="text" id="yahooquarter" class="form-control" name="searchquarters" placeholder="Tìm thủ tục..." onkeyup="searchquarter();"></li>
                             <li id="outputquarter" class="wrapper-dropdown"></li>
                             <input type="text" name="luachon" id="yunquarter" style="visibility: hidden;">
 
                         </div>
 
-                        <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2 ">
+                        <div class="col-xs-6 setTop col-sm-2 ">
                             <input class=" btn btn-info" type="submit" value="Xem thông tin" data-style="btn-primary"  >
                         </div>
 
@@ -187,17 +180,15 @@ function functionForSelectTag($str,$length){
                 <form  action="<?php echo base_url('admin/thong_ke/year_filter') ?>" method="post">
                     <div class="container-fluid">
                         <div class="row">
-                            <div class=" col-xs-2 col-sm-2 col-md-2 col-lg-2 ">
+                            <div class=" col-xs-3 setTop col-sm-2 ">
                                 <input  class="form-control"   id ="myYear" name="year"  type="number" min="2015" step="1" value="2015" >
                             </div>
-                            <div class="kiet col-xs-offset-4 col-sm-offset-4 col-md-offset-4 col-lg-offset-4 col-xs-4 col-sm-4 col-md-4 col-lg-4 ">
-                                <li><input type="text" id="yahooyear" class="form-control" name="searchyears" placeholder="Tìm thủ tục..." onkeydown="searchyear();"></li>
+                            <div class="kiet col-xs-5 setTop col-sm-4 col-sm-offset-4 ">
+                                <li><input type="text" id="yahooyear" class="form-control" name="searchyears" placeholder="Tìm thủ tục..." onkeyup="searchyear();"></li>
                                 <li id="outputyear" class="wrapper-dropdown"></li>
                                 <input type="text" name="luachon" id="yunyear" style="visibility: hidden;">
-
                             </div>
-
-                            <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2 ">
+                            <div class="col-xs-2 setTop">
                                 <input class=" btn btn-info" type="submit" value="Xem thông tin" data-style="btn-primary"  >
                             </div>
                         </div>

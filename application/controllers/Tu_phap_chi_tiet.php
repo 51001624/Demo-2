@@ -101,11 +101,10 @@ class Tu_phap_chi_tiet extends CI_Controller {
 
       ));
     } else{
-
       $this->load->model('Ho_so');
 
       $this->form_validation->set_message('required', '%s chưa nhập.');
-      $this->form_validation->set_message('min_length', '%s: It nhất là %s kí tự.');
+      $this->form_validation->set_message('min_length', '%s: Ít nhất là %s kí tự.');
       $this->form_validation->set_message('max_length', '%s: Nhiều nhất là %s kí tự.');
       $this->form_validation->set_message('regex_match', ' Số %s có 9 chữ số.');
 
@@ -113,7 +112,7 @@ class Tu_phap_chi_tiet extends CI_Controller {
 
       $this->form_validation->set_rules('dname', 'Tên người dân ', 'required|min_length[3]');
 
-      $this->form_validation->set_rules('dcmnd', 'CMND', 'required|regex_match[/^[0-9]{9}$/]');
+      $this->form_validation->set_rules('dcmnd', 'CMND', 'required|callback_regex_check');
 
       $this->form_validation->set_rules('dmobile', 'Số điện thoại ', 'required|min_length[10]|max_length[11]');
       $this->form_validation->set_rules('songay', 'Số ngày', 'required');
@@ -123,7 +122,6 @@ class Tu_phap_chi_tiet extends CI_Controller {
       $pos2 = strpos($le_phi_data, "đồng");
 
       $length = abs($pos2 - $pos1-5);
-
 
       $le_phi_temp = (int)substr($le_phi_data,$pos1+5,$length);
 
@@ -149,7 +147,7 @@ class Tu_phap_chi_tiet extends CI_Controller {
 
       if($this->form_validation->run() == false) {
 
-        $this->load->view('admin/content_chitiet_admin'
+        $this->load->view('admin/Tu_phap_chitiet_admin_view'
             ,array(
                 'node_map'=>$node_map
             ,'le_phi'=>$le_phi
@@ -173,14 +171,14 @@ class Tu_phap_chi_tiet extends CI_Controller {
             'status'=>0,
             'type'=> 0,
             'mcb'=>$_SESSION['ma_can_bo'],
-       
+
         );
         //Truyen du lieu sang co model
         $this->Ho_so->add_ho_so($data1);
         $data1['message'] = 'Du lieu duoc nhap thanh cong';
-        $this->load->view('admin/content_chitiet_admin'
+        $this->load->view('admin/Tu_phap_chitiet_admin_view'
             ,array(
-                'node_map'=>$node_map
+            'node_map'=>$node_map
             ,'le_phi'=>$le_phi
             ,'so_ngay'=>$so_ngay
             ,'thanh_phan_data'=>$thanh_phan_data
@@ -192,5 +190,15 @@ class Tu_phap_chi_tiet extends CI_Controller {
     $this->load->view('templates/footer');
   }
 
+  public function regex_check($str){
 
+    if(preg_match("/^[0-9]{9}$|^[0-9]{12}$/",$str,$matches)!==1){
+      $this->form_validation->set_message('regex_check', ' Số %s có 9 hoặc 12 chữ số.');
+      return FALSE;
+    }else{
+      return TRUE;
+    }
+
+  }
 }
+

@@ -24,24 +24,23 @@ class Dat_dai_chi_tiet extends CI_Controller {
 		}
 		$list_chi_tiet=$this->Map->lay_note($number);
 		$thanh_phan_data=$this->thanh_phan
-		->array_trans($list_chi_tiet[0]);
+				->array_trans($list_chi_tiet[0]);
 		if (count($list_chi_tiet)!=1)
 			redirect(base_url('trang_chu'));
 		if((!isset($_SESSION['name_user']))||
-			(($_SESSION['level']!=12)&&
-				($_SESSION['level']!=11))){//Neu la tp ngoai
+				(($_SESSION['level']!=12)&&
+						($_SESSION['level']!=11))){//Neu la tp ngoai
 
 			$this->load->view('dat_dai_chi_tiet_view',array(
-				'node_map' =>$node_map
+					'node_map' =>$node_map
 			,'thanh_phan_data'=>$thanh_phan_data
-
 			));
 
 		} else{
 
 			$this->load->model('Ho_so');
 			$this->form_validation->set_message('required', '%s chưa nhập.');
-			$this->form_validation->set_message('min_length', '%s: It nhất là %s kí tự.');
+			$this->form_validation->set_message('min_length', '%s: Ít nhất là %s kí tự.');
 			$this->form_validation->set_message('max_length', '%s: Nhiều nhất là %s kí tự.');
 			$this->form_validation->set_error_delimiters('<span class="error">','</span>');
 			$this->form_validation->set_rules('dname', 'Tên người dân ', 'required|min_length[3]|max_length[20]');
@@ -51,10 +50,10 @@ class Dat_dai_chi_tiet extends CI_Controller {
 
 			if($this->form_validation->run() == false) {
 				$this->load->view('admin/dat_dai_chi_tiet_admin_view'
-					,array(
-						'node_map'=>$node_map
-					,'thanh_phan_data'=>$thanh_phan_data
-					));
+						,array(
+								'node_map'=>$node_map
+						,'thanh_phan_data'=>$thanh_phan_data
+						));
 
 			}else{
 
@@ -63,26 +62,26 @@ class Dat_dai_chi_tiet extends CI_Controller {
 
 				$myThuTuc = str_replace(',','', $myThuTuc); // Replaces , by nothing
 				$data1 = array(
-					'name' => $this->input->post('dname'),
-					'cmnd' => $this->input->post('dcmnd'),
-					'sdt' => $this->input->post('dmobile'),
-					'mshs' => $this->input->post('ma_Ho_So'),
-					'dia_chi'=>$this->input->post('diachi'),
-					'tt_giay_to_da_thu' =>$myThuTuc,
-					'status'=> 0,
-					'type'=> 1,
-					'note'=>$this->input->post('note'),
-					'mcb'=> $_SESSION['ma_can_bo']
+						'name' => $this->input->post('dname'),
+						'cmnd' => $this->input->post('dcmnd'),
+						'sdt' => $this->input->post('dmobile'),
+						'mshs' => $this->input->post('ma_Ho_So'),
+						'dia_chi'=>$this->input->post('diachi'),
+						'tt_giay_to_da_thu' =>$myThuTuc,
+						'status'=> 0,
+						'type'=> 1,
+						'note'=>$this->input->post('note'),
+						'mcb'=> $_SESSION['ma_can_bo']
 				);
 				//Truyen du lieu sang co model
 				$this->Ho_so->add_ho_so($data1);
 				$data1['message'] = 'Du lieu duoc nhap thanh cong';
 				$this->load->view('admin/dat_dai_chi_tiet_admin_view'
-					,array(
-					'node_map'=>$node_map
-					,'thanh_phan_data'=>$thanh_phan_data
-					,'message'=>$data1['message']
-					));
+						,array(
+								'node_map'=>$node_map
+						,'thanh_phan_data'=>$thanh_phan_data
+						,'message'=>$data1['message']
+						));
 			}
 
 		}
@@ -90,11 +89,11 @@ class Dat_dai_chi_tiet extends CI_Controller {
 	}
 	public function regex_check($str){
 
-				if(preg_match("/^[0-9]{9}$|^[0-9]{12}$/",$str,$matches)!==1){
-						$this->form_validation->set_message('regex_check', ' Số %s có 9 hoặc 12 chữ số.');
-						return FALSE;
+		if(preg_match("/^[0-9]{9}$|^[0-9]{12}$/",$str,$matches)!==1){
+			$this->form_validation->set_message('regex_check', ' Số %s có 9 hoặc 12 chữ số.');
+			return FALSE;
 		}else{
-						return TRUE;
+			return TRUE;
 		}
 
 	}

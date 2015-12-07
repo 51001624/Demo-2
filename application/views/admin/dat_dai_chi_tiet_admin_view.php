@@ -38,85 +38,115 @@
                     <div class="panel-heading">
                         <h4 class="panel-title">Thông tin của người làm hồ sơ </h4>
                     </div>
-                    <div class="panel-body">
+                    <div class="container-fluid panel-body">
                         <div class="row">
-                            <div class="col-xs-offset-1 col-sm-offset-1 col-md-offset-1 col-lg-offset-1 col-xs-2 col-sm-2 col-md-2 col-lg-2">
-                                <label>Họ và tên</label>
+                            <div class="col-sm-offset-1 col col-xs-3 col-sm-2">
+                                <div class="row">
+                                    <div class="col-sm-10 col-sm-offset-2">
+                                        <label>Họ và tên</label>
+                                    </div>
+                                </div>
+
                             </div>
-                            <div class="col-xs-5 col-sm-5 col-md-5 col-lg-5">
+                            <div class="col-xs-5 col-sm-4">
                                 <input class="form-control" id="dname" type="text" name="dname">
                             </div>
 
-                            <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+                            <div class="col-xs-4 col-sm-5">
                                 <div class="error">* <?php echo form_error('dname'); ?><br ></div>
                             </div>
                         </div>
-                        <label></label>
-                        <div class="row">
-                            <div class="col-xs-offset-1 col-sm-offset-1 col-md-offset-1 col-lg-offset-1 col-xs-2 col-sm-2 col-md-2 col-lg-2">
-                                <label>Số CMND </label>
+                        <div class="row setTop">
+                            <div class="col-sm-offset-1 col col-xs-3 col-sm-2">
+                                <div class="row">
+                                    <div class="col-sm-10 col-sm-offset-2">
+                                        <label>Số CMND</label>
+                                    </div>
+                                </div>
+
                             </div>
-                            <div class="col-xs-5 col-sm-5 col-md-5 col-lg-5">
+                            <div class="col-xs-5 col-sm-4">
                                 <input  class="form-control" id="inputCMND" type="text" name="dcmnd" >
                             </div>
 
-                            <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+                            <div class="col-xs-4 col-sm-5">
                                 <div class="error">* <?php echo form_error('dcmnd'); ?></div>
                             </div>
                         </div>
-                        <label></label>
-                        <div class="row">
-                            <div class="col-xs-offset-1 col-sm-offset-1 col-md-offset-1 col-lg-offset-1 col-xs-2 col-sm-2 col-md-2 col-lg-2">
-                                <label>Số điện thoại </label>
+
+
+                        <!--So dien thoai -->
+                        <div class="row setTop">
+                            <div class="col-sm-offset-1 col col-xs-3 col-sm-2">
+                                <div class="row">
+                                    <div class="col-sm-10 col-sm-offset-2">
+                                        <label>Số điện thoại </label>
+                                    </div>
+                                </div>
+
                             </div>
-                            <div class="col-xs-5 col-sm-5 col-md-5 col-lg-5">
+                            <div class="col-xs-5 col-sm-4">
                                 <input class="form-control" id="inputPhone" type="text" name="dmobile" >
                             </div>
 
-                            <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+                            <div class="col-xs-4 col-sm-5">
                                 <div class="error">* <?php echo form_error('dmobile'); ?></div>
                             </div>
                         </div>
-                        <label></label>
-                        <div class="row">
-                            <div class="col-xs-offset-1 col-sm-offset-1 col-md-offset-1 col-lg-offset-1 col-xs-2 col-sm-2 col-md-2 col-lg-2">
-                                <label>Địa chỉ </label>
-                            </div>
-                            <div class="col-xs-5 col-sm-5 col-md-5 col-lg-5">
-                                <input class="form-control" type="text" name="diachi" >
-                            </div>
 
+
+
+                        <!-- Dia chi-->
+
+                        <div class="row setTop">
+                            <div class="col-sm-offset-1 col col-xs-3 col-sm-2">
+                                <div class="row">
+                                    <div class="col-sm-10 col-sm-offset-2">
+                                        <label>Địa chỉ </label>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="col-xs-5 col-sm-4">
+                                <input class="form-control"  type="text" name="diachi" >
+                            </div>
                         </div>
-                        <label></label>
-                        <div class="row">
-                            <div class="col-xs-offset-1 col-sm-offset-1 col-md-offset-1 col-lg-offset-1 col-xs-2 col-sm-2 col-md-2 col-lg-2">
-                                <label>Số ngày giải quyết </label>
+
+                        <!--So ngay-->
+
+                        <div class="row setTop">
+                            <div class="col-sm-offset-1 col col-xs-3 col-sm-2">
+                                <div class="row">
+                                    <div class="col-sm-10 col-sm-offset-2">
+                                        <label>Số ngày giải quyết </label>
+                                    </div>
+                                </div>
+
                             </div>
-                            <div class="col-xs-1 col-sm-1 col-md-1 col-lg-1">
-                                <input class="form-control" id="songay" onkeyup="doMacBookPro();" type="lable" name="songay" >
-                            </div>
-                            <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
-                                <div class="error"><span class="error">* <?php echo form_error('songay'); ?></span></div>
+                            <div class="col-xs-2 col-sm-1">
+                                <input class="form-control" style="width: 65px;" size="1" id="songay" onchange="doMacBookProCaseChange()" onkeyup="doMacBookPro()" type="number" min="0" name="songay" >
                             </div>
 
+                            <div class="col-xs-4 col-sm-5">
+                                <div><span class="error">* <?php echo form_error('songay'); ?></span></div>
+                            </div>
                         </div>
-                        <label></label>
-                        <div class="row">
 
-                            <div class="col-xs-offset-1 col-sm-offset-1 col-md-offset-1 col-lg-offset-1 col-xs-2 col-sm-2 col-md-2 col-lg-2">
-                                <label>Ngày trả dự kiến:</label>
+                        <div class="row setTop">
+                            <div class="col-sm-offset-1 col col-xs-3 col-sm-2">
+                                <div class="row">
+                                    <div class="col-sm-10 col-sm-offset-2">
+                                        <label>Ngày trả dự kiến </label>
+                                    </div>
+                                </div>
                             </div>
-                            <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                            <div class="col-xs-6 ">
                                 <label id="time_info"></label>
                             </div>
                         </div>
-
-                        </label>
                         <!-- For saving purpose-->
-                        <input type="text" id="ma_Ho_So" name="ma_Ho_So"   style="visibility: hidden" >
-
+                        <input type="text" id="ma_Ho_So" name="ma_Ho_So" style="visibility: hidden" >
                     </div><!--Panel body-->
-
                 </div>
 
                 <div class="panel panel-info">
@@ -143,9 +173,9 @@
                                     $number = "myNumber".$i;
                                     ?>
                                     <tr id="2015">
-                                        <td class=" col-md-1"><input class="lovecheckbox"type="checkbox"  name="chk_group" id= <?php echo $checkBox?> onclick="display(<?php echo $i ?>)" value="<?php echo $arrayThutuc[$i];?>"></td>
-                                        <td class="col-md-9"><label style="font-weight: normal;"><?php echo $arrayThutuc[$i]?></label></td>
-                                        <td class="col-md-2"><input  class=" lovetextbox form-control"  id = <?php echo $number ?> type="number" min="0" max="30" onkeyup="forIndividualCase(<?php echo $i ?>)" onchange="forIndividualCaseChanged(<?php echo $i ?>)" step="1" value="0" size="1"></td>
+                                        <td class=" col-xs-1"><input class="lovecheckbox"type="checkbox"  name="chk_group" id= <?php echo $checkBox?> onclick="display(<?php echo $i ?>)" value="<?php echo $arrayThutuc[$i];?>"></td>
+                                        <td class="col-xs-9"><label style="font-weight: normal;"><?php echo $arrayThutuc[$i]?></label></td>
+                                        <td class="col-xs-1"><input style="width: 65px;" class=" lovetextbox form-control"  id = <?php echo $number ?> type="number" min="0" onkeyup="forIndividualCase(<?php echo $i ?>)" onchange="forIndividualCaseChanged(<?php echo $i ?>)"  step="1" value="0" size="1"></td>
                                     </tr>
                                 <?php } ?>
                             <?php } ?>
