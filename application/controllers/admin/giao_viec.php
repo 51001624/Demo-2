@@ -23,14 +23,44 @@ class Giao_viec extends CI_Controller
     public function index()
     {
         $this->load->model('Cong_viec');
-       // $data1 = $this->Cong_viec->count_all();
+        $data1 = $this->Cong_viec->get_users($_SESSION['level']);
         $data['title'] = 'Giao công việc  - UBND Huyện Bến Lức';
         $this->load->view('templates/header', $data);
         $this->load->view('templates/aside');
         $this->load->view('templates/nav');
-        $this->load->view('admin/giao_cong_viec_view',array('data1'=>"an avariable"));
+        $this->load->view('admin/giao_cong_viec_view',array('data1'=>$data1));
         $this->load->view('templates/footer');
     }
+
+
+
+    public function addCongViec(){
+
+        $data1 = array(
+        'title'=>$_POST['myTitle']
+        ,'startdate'=>$_POST['startDate']
+        ,'enddate'=>$_POST['endDate']
+        ,'ma_can_bo_giao'=>$_SESSION['ma_can_bo']
+        ,'ma_can_bo_nhan'=>$_POST['mcbNhan']
+        ,'status'=>$_POST['status']
+        );
+
+        $this->db->insert('calendar',$data1);
+        echo "Đã giao công việc, chờ xác nhận !";
+
+
+    }
+
+
+
+    public function xoaCongViec(){
+        $deletedID = $_POST['id'];
+        $this->db->where('id',$deletedID);
+        $this->db->delete('calendar');
+       echo "Da xoa";
+    }
+
+
 
 
 

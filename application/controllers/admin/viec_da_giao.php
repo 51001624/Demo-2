@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Nhan_viec extends CI_Controller
+class Viec_da_giao extends CI_Controller
 {
 
     public function __construct()
@@ -10,9 +10,7 @@ class Nhan_viec extends CI_Controller
 
         if ((!isset($_SESSION['name_user'])) ||
             (
-                ($_SESSION['level'] != 11) &&
-                ($_SESSION['level'] != 12) &&
-                ($_SESSION['level'] != 13) &&
+                ($_SESSION['level'] != 100) &&
                 ($_SESSION['level'] != 21) &&
                 ($_SESSION['level'] != 22)
             )
@@ -25,29 +23,13 @@ class Nhan_viec extends CI_Controller
     public function index()
     {
         $this->load->model('Cong_viec');
-        $data2 = $this->Cong_viec->get_cong_viec_da_nhan();
+        $data2 = $this->Cong_viec->get_cong_viec($_SESSION['ma_can_bo']);
         $data['title'] = 'Giao công việc  - UBND Huyện Bến Lức';
         $this->load->view('templates/header', $data);
         $this->load->view('templates/aside');
         $this->load->view('templates/nav');
-        $this->load->view('admin/nhan_cong_viec_view',array('data2'=>$data2));
+        $this->load->view('admin/cong_viec_da_giao',array('data2'=>$data2));
         $this->load->view('templates/footer');
-    }
-
-    public function updateCongViec(){
-        $id = $_POST['id'];
-        $data = array(
-            'status' => $_POST['status']
-        );
-
-        $this->db->where('id',$id);
-        $this->db->update('calendar',$data);
-
-
-        echo "success";
-
-
-        //echo "sussess";
     }
 
 

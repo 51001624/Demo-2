@@ -85,7 +85,9 @@ class Phan_cong extends CI_Controller
 
     public function addCongViec(){
 
-        $data1 = array('ma_can_bo'=>$_SESSION['ma_can_bo']
+
+
+        /*$data1 = array('ma_can_bo'=>$_SESSION['ma_can_bo']
         ,'title'=>$_POST['myTitle']
         ,'startdate'=>$_POST['startDate']
         ,'enddate'=>$_POST['endDate']
@@ -93,7 +95,9 @@ class Phan_cong extends CI_Controller
         ,'allDay'=>$_POST['allDay']
         );
 
-        $this->db->insert('calendar',$data1);
+        $this->db->insert('calendar',$data1);*/
+        echo "sucess";
+        exit();
 
 
     }
