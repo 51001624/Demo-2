@@ -62,23 +62,36 @@
         </li>
         <?php 
         if (!isset($_SESSION['name_user'])){
+
         echo'
         <li>
             <a href="'. base_url('admin/admin').'"><i class="fa fa-user fa-fw"></i> Đăng nhập</a>
         </li>';}
+        /*For badge*/
+
+
+
         if((isset($_SESSION['name_user']))&&
             (($_SESSION['level']==11)||($_SESSION['level']==12))){
+            $mcb = $_SESSION['ma_can_bo'];
+            $where1 = " ma_can_bo_nhan = '$mcb' AND status = 1 ";
+            $where2 = " ma_can_bo_nhan = '$mcb' AND status = 2 ";
+            $where = "$where1 OR $where2";
             echo '<li><a href="'.base_url('admin/admin_tiep_nhan').'">
                   <i class="fa fa-files-o fa-fw"></i> Hồ sơ đã nhận <span class="badge right">'.$this->db->where('status',0)->where('mcb',($_SESSION['ma_can_bo']))->count_all_results('ho_so').'</span></a></li>';
             if($_SESSION['level']==11){
                 echo '<li><a href="'.base_url('admin/nhan_viec').'">
-                  <i class="fa fa-list-ol"></i>Công việc được giao<span class="badge right">'.$this->db->where('ma_can_bo_nhan',$_SESSION['ma_can_bo'])->where('status',1)->count_all_results('calendar').'</span>  </a></li>';
+                  <i class="fa fa-list-ol"></i>Công việc được giao<span class="badge right">'.$this->db->where($where)->count_all_results('calendar').'</span>  </a></li>';
                 echo '<li><a href="'.base_url('admin/phan_cong').'">
                   <i class="fa fa-calendar  fa-fw"></i>  Lịch của tôi </a></li>';
             }
 
         }
         if((isset($_SESSION['name_user']))&&($_SESSION['level']==21)){
+            $mcb = $_SESSION['ma_can_bo'];
+            $where1 = " ma_can_bo_nhan = '$mcb' AND status = 1 ";
+            $where2 = " ma_can_bo_nhan = '$mcb' AND status = 2 ";
+            $where = "$where1 OR $where2";
             echo '<li><a href="'.base_url('admin/admin_phong_ban').'">
                   <i class="fa fa-files-o fa-fw"></i> Hồ sơ xử lý <span class="badge right">'.$this->db->where('status',1)->where('type', 0)->or_where('status', 2)
                  ->where('mcb',($_SESSION['ma_can_bo']))->count_all_results('ho_so').'</span></a></li>';
@@ -87,13 +100,17 @@
             echo '<li><a href="'.base_url('admin/viec_da_giao').'">
                   <i class="fa fa-tasks"></i>Công việc đã giao<span class="badge right">'.$this->db->where('ma_can_bo_giao',$_SESSION['ma_can_bo'])->count_all_results('calendar').'</span>  </a></li>';
             echo '<li><a href="'.base_url('admin/nhan_viec').'">
-                  <i class="fa fa-list-ol"></i>Công việc được giao<span class="badge right">'.$this->db->where('ma_can_bo_nhan',$_SESSION['ma_can_bo'])->where('status',1)->count_all_results('calendar').'</span>  </a></li>';
+                  <i class="fa fa-list-ol"></i>Công việc được giao<span class="badge right">'.$this->db->where($where)->count_all_results('calendar').'</span>  </a></li>';
             echo '<li><a href="'.base_url('admin/phan_cong').'">
                   <i class="fa fa-calendar  fa-fw"></i>  Lịch của tôi </a></li>';
             echo '<li><a href="'.base_url('admin/thong_ke').'">
                   <i class="fa fa-bar-chart-o  fa-fw"></i> Thống kê </a></li>';
         }
         if((isset($_SESSION['name_user']))&&($_SESSION['level']==22)){
+            $mcb = $_SESSION['ma_can_bo'];
+            $where1 = " ma_can_bo_nhan = '$mcb' AND status = 1 ";
+            $where2 = " ma_can_bo_nhan = '$mcb' AND status = 2 ";
+            $where = "$where1 OR $where2";
             echo '<li><a href="'.base_url('admin/admin_phong_ban').'">
                   <i class="fa fa-files-o fa-fw"></i> Hồ sơ xử lý <span class="badge right">'.$this->db->where('status',1)->where('type', 1)->or_where('status', 2)
                  ->where('mcb',($_SESSION['ma_can_bo']))->count_all_results('ho_so').'</span></a></li>';
@@ -102,7 +119,7 @@
             echo '<li><a href="'.base_url('admin/viec_da_giao').'">
                   <i class="fa fa-tasks"></i>Công việc đã giao<span class="badge right">'.$this->db->where('ma_can_bo_giao',$_SESSION['ma_can_bo'])->count_all_results('calendar').'</span>  </a></li>';
             echo '<li><a href="'.base_url('admin/nhan_viec').'">
-                  <i class="fa fa-list-ol"></i>Công việc được giao<span class="badge right">'.$this->db->where('ma_can_bo_nhan',$_SESSION['ma_can_bo'])->where('status',1)->count_all_results('calendar').'</span>  </a></li>';
+                  <i class="fa fa-list-ol"></i>Công việc được giao<span class="badge right">'.$this->db->where($where)->count_all_results('calendar').'</span>  </a></li>';
             echo '<li><a href="'.base_url('admin/phan_cong').'">
                   <i class="fa fa-calendar  fa-fw"></i>  Lịch của tôi </a></li>';
             echo '<li><a href="'.base_url('admin/thong_ke').'">

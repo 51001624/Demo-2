@@ -602,7 +602,6 @@ p {
     display: block;
     font-size: 1.25em;
     padding-top: 3px;
-    margin-left: 60px;
 }
 .Ying a {
     color: #3498db;
@@ -632,6 +631,22 @@ p {
     border-top: 1px solid #e7ebee;
     padding: 12px 8px;
 }
+
+/*for thetable*/
+.setWidth{
+    max-width: 100px;
+}
+
+.concat div{
+    overflow: hidden;
+    -ms-text-overflow: ellipsis;
+    -o-text-overflow: ellipsis;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    width: inherit;
+
+}
+
 
 .wrapper-dropdown {
     /* Size and position */

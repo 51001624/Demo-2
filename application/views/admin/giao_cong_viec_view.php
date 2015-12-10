@@ -15,11 +15,9 @@
         <div class="table-responsive">
             <table class="Ying table user-list">
                 <thead>
-                <tr>
-                    <th><span>User</span></th>
-                    <th class="text-center"><span>Status</span></th>
-                    <th><span>Email</span></th>
-                    <th>&nbsp;</th>
+                <tr >
+                    <th ><span>Cán bộ</span></th>
+                    <th class=" text-center"><span>Áp dụng</span></th>
                 </tr>
                 </thead>
                 <tbody>
@@ -35,9 +33,7 @@
                    echo '<button value='.$data1[$i]->ma_can_bo.' class="giaoviec btn btn-info">Giao Việc</button>';
 
                     echo '</td>
-                    <td>
-                        <a href="#">marlon@brando.com</a>
-                    </td>
+
                 </tr>';
                 }
 

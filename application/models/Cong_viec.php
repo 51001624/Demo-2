@@ -31,7 +31,11 @@ class Cong_viec extends CI_Model{
 
     public function get_cong_viec_da_nhan(){
         $mcb = $_SESSION['ma_can_bo'];
-        $where = "status = 1 OR status = 2  ";
+        $where1 = "status = 1 AND ma_can_bo_nhan = '$mcb' ";
+        $where2 = "status = 2 AND ma_can_bo_nhan = '$mcb' ";
+
+        $where = "$where1 OR $where2";
+
 
         $this->db->where($where);
         $q = $this->db->get('calendar');

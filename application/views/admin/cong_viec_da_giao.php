@@ -49,7 +49,7 @@
                         echo '</td>';
                     } else if ($data2[$i]->status == 0) {
                         echo '<span class="happy label label-danger">Công việc không được chấp nhận</span>';
-                        echo '</td>;
+                        echo '</td>
                         <td class="text-center">';
                          echo '<button value='.$data2[$i]->id.' class="giaoviec btn btn-danger" data-file="1">Xoá </button>';
                         echo '</td>';
