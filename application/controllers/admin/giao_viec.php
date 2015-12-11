@@ -23,7 +23,7 @@ class Giao_viec extends CI_Controller
     public function index()
     {
         $this->load->model('Cong_viec');
-        $data1 = $this->Cong_viec->get_users($_SESSION['level']);
+        $data1 = $this->Cong_viec->get_users($_SESSION['level'],$_SESSION['ma_can_bo']);
         $data['title'] = 'Giao công việc  - UBND Huyện Bến Lức';
         $this->load->view('templates/header', $data);
         $this->load->view('templates/aside');

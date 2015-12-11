@@ -570,9 +570,6 @@ p {
 
 .setTop { margin-top:20px; }
 
-.main-box.no-header {
-    padding-top: 20px;
-}
 .main-box {
     background: #FFFFFF;
     -webkit-box-shadow: 1px 1px 2px 0 #CCCCCC;
@@ -648,6 +645,7 @@ p {
 }
 
 
+
 .wrapper-dropdown {
     /* Size and position */
     position: relative;
@@ -676,7 +674,12 @@ p {
     margin-top: 1px;
 }
 
-
+.myFont{
+    font-weight: 500; font-size: 13px;
+}
+.myOtherFont{
+    font-weight: 500; font-size: 14px;
+}
 .hiddenClass{
     visibility: hidden;
 }

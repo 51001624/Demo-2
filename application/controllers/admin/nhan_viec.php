@@ -38,6 +38,7 @@ class Nhan_viec extends CI_Controller
         $id = $_POST['id'];
         $data = array(
             'status' => $_POST['status']
+            ,'phan_tram'=>$_POST['percent']
         );
 
         $this->db->where('id',$id);
@@ -48,6 +49,8 @@ class Nhan_viec extends CI_Controller
 
         //echo "sussess";
     }
+
+
 
 
 

@@ -1,9 +1,12 @@
 <?php
 class Cong_viec extends CI_Model{
-    public function get_users($level){
+    public function get_users($level,$mcb){
         if($level==100||$level==21||$level==22){
-            $where = "level='11' OR level='12'OR level='13'OR level='21' OR level='22' ";
+            $where1 = "(level='11' OR level='12'OR level='13'OR level='21' OR level='22')";
+            $where2 = "ma_can_bo != '$mcb'";
+            $where = "$where1 AND $where2";
         }
+
 
         $this->db->where($where);
         $q = $this->db->get('user');
@@ -35,7 +38,6 @@ class Cong_viec extends CI_Model{
         $where2 = "status = 2 AND ma_can_bo_nhan = '$mcb' ";
 
         $where = "$where1 OR $where2";
-
 
         $this->db->where($where);
         $q = $this->db->get('calendar');

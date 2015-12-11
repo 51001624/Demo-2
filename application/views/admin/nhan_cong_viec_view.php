@@ -46,7 +46,14 @@
     </div>
 </div><!--end modal-->
 
-<div class="Ying main-box no-header clearfix">
+
+<?php
+if(count($data2)<=0){
+    echo'<p style="color:red;">Không có công việc nào được giao</p>';
+}
+else{
+    echo '
+    <div class="Ying main-box no-header clearfix">
     <div class="main-box-body clearfix">
             <table class="Ying table user-list">
                 <thead>
@@ -58,27 +65,26 @@
                     <th class="col-xs-1 col-sm-2" >Quyết định</th>
                 </tr>
                 </thead>
-                <tbody>
-                <?php
+                <tbody>';
                 for($i = 0; $i<count($data2); $i++) {
                     $listTask = $this->db->where('ma_can_bo', $data2[$i]->ma_can_bo_giao)->get('user');
                     $myUserRow = $listTask->result()[0];
                     echo '<tr>';
                     echo '<td><img src="' . base_url('upload/' . $myUserRow->avatar) . '" alt="">' . $myUserRow->hoten . '<span class="user-link user-subhead" >' . $myUserRow->ma_can_bo . '</span></td>';
-                    echo '<td class="setWidth concat"><div>'.$data2[$i]->title.'</div></td>';
+                    echo '<td class="setWidth concat"><div style="font-weight: 500; font-size: larger;">'.$data2[$i]->title.'</div></td>';
                     $dbdate = $data2[$i]->enddate;
                     $myDate = substr($dbdate,8,2).'/'.substr($dbdate,5,2).'/'.substr($dbdate,0,4);
                     echo '<td>'.$myDate.'</td>';
                 if($data2[$i]->status==2) {
                     echo '<td >
 <form class="form-inline" style="margin-top: 10px;">
-  <div class="form-group">
-      <div class="input-group">
-          <input type="number" step="10" min="0" max="100" style="width: 100px;" class="form-control" id="myLoveInput" >
+  <div class="form-group" >
+      <div class="input-group" >
+          <input  value="'.$data2[$i]->phan_tram.'" type="number" step="10" min="0" max="100" style="width: 100px;" data-file="'.$data2[$i]->id.'" class="form-control"  >
           <div class="input-group-addon">%</div>
       </div>
-        <div class="progress" style="margin-top: 20px;">
-            <div id="myLoveProgress" class=" progress-bar progress-bar-striped active" role="progressbar" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100" style="width:50%">50%
+        <div  class="progress" style="margin-top: 20px;">
+            <div id = "'.$data2[$i]->id.'"   class=" progress-bar progress-bar-striped active" role="progressbar" aria-valuenow="'.$data2[$i]->phan_tram.'" aria-valuemin="0" aria-valuemax="100" style="width:'.$data2[$i]->phan_tram.'%">'.$data2[$i]->phan_tram.'%
             </div>
         </div>
   </div>
@@ -96,18 +102,17 @@
                         <button data-lovely = "2"  data-file=' . $data2[$i]->id . ' class="giaoviec btn btn-block btn-danger"  data-love="type_1">Không nhận</button>
                         ';
                     }else{
-                        echo '<button  data-file=' . $data2[$i]->id . ' class="giaoviec btn btn-block btn-success" data-love="type_2" disabled >Đã hoàn thành</button>';
+                        echo '<button style="background-color:gray;" data-file=' . $data2[$i]->id . ' class="giaoviec mauButton  btn btn-block btn-success" data-love="type_2" id = "'."k".$data2[$i]->id.'"  disabled >Chưa hoàn thành</button>';
                     }
                     echo '</td>';
                 echo '</tr>';
                 }
-
-                ?>
-                </tbody>
+                echo '</tbody>
             </table>
     </div>
-</div>
-
+</div>';
+}
+?>
 <input type="text"  id="base_html" value="<?php echo base_url();?>" style="visibility: hidden;">
 <script type="text/javascript">
     var mylink = document.getElementById('base_html').value;
@@ -117,20 +122,73 @@
 
     var myValue = 0;
 
-    $('#myLoveInput').keyup(function(e) {
-       // alert($('#myLoveInput').attr("value"));
 
-        myValue = $(this).val();
-        //alert($('.progress .progress-bar').val());
-        $('.progress-bar').css('width', myValue+'%').attr('aria-valuenow', myValue);
-        $('#myLoveProgress').html(myValue+"%");
+
+
+    $(function() {
+
+        var myProgressBar = $('.progress-bar');
+        var myButton = $('.mauButton');
+        var theSize = myProgressBar.size();
+        for( var i = 0; i<theSize;i++){
+            if($(myProgressBar[i]).attr('aria-valuenow')<30){
+                $(myProgressBar[i]).css('background-color','red');
+            }else if($(myProgressBar[i]).attr('aria-valuenow')<100){
+                $(myProgressBar[i]).css('background-color','rgb(251,149,0)');
+            }else{
+                $(myProgressBar[i]).css('background-color','rgb(66,238,66)');
+                $(myButton[i]).css('background-color','rgb(66,238,66)');
+            }
+        }
+
+
+        var myID = $("input[value~='100']");//.size();
+        var myVar = 0;
+        for ( var i = 0; i<myID.size();i++){
+            myVar = $(myID[i]).data('file');
+            $('#k'+myVar).attr('disabled',false).html('Báo hoàn thành');
+        }
     });
 
 
-    $('#myLoveInput').keypress(function(event) {
-        if(myValue > 100){
-            event.preventDefault();
+    $('.form-control').on('change keyup', function(e){
+        var $this = $(this),
+            id = $this.data('file');
+
+        myValue = $(this).val();
+        if (myValue> 100
+            && e.keyCode != 46 // delete
+            && e.keyCode != 8 // backspace
+        ) {
+            myValue = 100;
+            e.preventDefault();
+            $(this).val(100);
+
         }
+            if(myValue <=20){
+                $('#'+id).css({'width': myValue+'%' ,'background-color':'red'}).attr('aria-valuenow', myValue).html(myValue+"%");
+                $('#k'+id).attr('disabled',true).html('Chưa hoàn thành').css('background-color','gray');
+            }else if(myValue <= 90){
+                $('#'+id).css({'width': myValue+'%' ,'background-color':'rgb(251,149,0)'}).attr('aria-valuenow', myValue).html(myValue+"%");
+                $('#k'+id).attr('disabled',true).html('Chưa hoàn thành').css('background-color','gray');
+            }else {
+                $('#'+id).css({'width': myValue+'%' ,'background-color':'rgb(66,238,66)'}).attr('aria-valuenow', myValue).html(myValue+"%");
+                $('#k'+id).attr('disabled',false).html('Báo hoàn thành').css('background-color','rgb(66,238,66)');
+            }
+
+
+        $.post(linkUpdate,
+            { // Data Sending With Request To Server
+                id:id,
+                status:2,
+                percent:myValue
+
+            },
+            function (response) {
+            }
+        );
+
+
     });
 
     $('.giaoviec').on("click",function(){
@@ -141,6 +199,7 @@
             $.post(linkUpdate,
                 { // Data Sending With Request To Server
                     id:id,
+                    percent:0,
                     status: status
 
                 },
@@ -156,6 +215,7 @@
             $.post(linkUpdate,
                 { // Data Sending With Request To Server
                     id:id,
+                    percent:0,
                     status: status
 
                 },
@@ -172,6 +232,7 @@
             $.post(linkUpdate,
                 { // Data Sending With Request To Server
                     id:id,
+                    percent:100,
                     status: status
 
                 },
@@ -182,9 +243,9 @@
                 }
             );
         }else{
-            var $this = $(this),
-                type_button = $this.data('lovely');
-            if(type_button==1){
+            var $this1 = $(this),
+                type_button1 = $this1.data('lovely');
+            if(type_button1==1){
 
                 $('#fullCalModalSayYes').modal();
 

@@ -9,69 +9,75 @@
     </li>
 </ol>
 
-
-<div class="Ying main-box no-header clearfix">
+<?php
+if(count($data2)<=0){
+    echo'<p style="color:red;">Không có công việc nào được giao</p>';
+}
+else{
+    echo '
+    <div class="Ying main-box no-header clearfix">
     <div class="main-box-body clearfix">
-        <div class="table-responsive">
-            <table class="Ying table user-list">
+            <table class="Ying table user-list table-hover">
                 <thead>
-                <tr>
-                    <th class="col-xs-3"><span>Người nhận việc</span></th>
-                    <th class="col-xs-5 text-center "><span>Tên công việc</span></th>
-                    <th class="col-xs-3" ><span>Trạng thái công việc</span></th>
-                    <th class="col-xs-1" ><span>Áp dụng</span></th>
+                <tr >
+                    <th class="col-xs-2 col-sm-3">Người giao việc</th>
+                    <th class="col-xs-1 col-sm-3 ">Tên công việc</th>
+                    <th class="col-xs-2 col-sm-2 ">Ngày kết thúc</th>
+                    <th class="col-xs-2 col-sm-2 ">Trạng thái </th>
+                    <th class="col-xs-1 col-sm-2" ><button class="btn btn-block btn-danger">Xoá hết CV </button></th>
                 </tr>
                 </thead>
-                <tbody>
-                <?php
-
-
-                for($i = 0; $i<count($data2); $i++) {
-                    $listTask = $this->db->where('ma_can_bo', $data2[$i]->ma_can_bo_nhan)->get('user');
-                    $myUserRow = $listTask->result()[0];
-                    echo '<tr>
-                    <td>
-                        <img src="' . base_url('upload/' . $myUserRow->avatar) . '" alt="">
-                        ' . $myUserRow->hoten . '
-                        <span class="user-link user-subhead" >' . $myUserRow->ma_can_bo . '</span>
-                    </td>
-              <td class="text-center">';
-                    echo $data2[$i]->title;
-                    echo '</td>
-
-                     <td>';
-
-                    if ($data2[$i]->status == 1) {
-                        echo '<span class=" happy label label-default">Đã chuyển công việc, chờ xác nhận </span>';
-                        echo '</td>';
-                    } else if ($data2[$i]->status == 2) {
-                        echo '<span class="happy label label-default">Giao việc thành công</span>';
-                        echo '</td>';
-                    } else if ($data2[$i]->status == 0) {
-                        echo '<span class="happy label label-danger">Công việc không được chấp nhận</span>';
-                        echo '</td>
+                <tbody>';
+    for($i = 0; $i<count($data2); $i++) {
+        $listTask = $this->db->where('ma_can_bo', $data2[$i]->ma_can_bo_nhan)->get('user');
+        $myUserRow = $listTask->result()[0];
+        echo '<tr>';
+        echo '<td><img src="' . base_url('upload/' . $myUserRow->avatar) . '" alt="">' . $myUserRow->hoten . '<span class="user-link user-subhead" >' . $myUserRow->ma_can_bo . '</span></td>';
+        echo '<td class="setWidth concat"><div class="myOtherFont">'.$data2[$i]->title.'</div></td>';
+        $dbdate = $data2[$i]->enddate;
+        $myDate = substr($dbdate,8,2).'/'.substr($dbdate,5,2).'/'.substr($dbdate,0,4);
+        echo '<td><div class="myfont">'.$myDate.'</div></td>';
+        echo '<td >';
+            if ($data2[$i]->status == 1) {
+                echo '<div class=" label label-primary myFont">Đang chờ xác nhận</div>';
+                echo '</td>';
+                echo '<td></td>';
+            } else if ($data2[$i]->status == 2) {
+                echo ' <div class="label label-info myFont">Đã hoàn thành '.$data2[$i]->phan_tram.' %</div>';
+                echo '</td>';
+                echo '<td></td>';
+            } else if ($data2[$i]->status == 0) {
+                echo '<div <div class="label label-danger myFont">Không được chấp nhận</div>';
+                echo '</td>
                         <td class="text-center">';
-                         echo '<button value='.$data2[$i]->id.' class="giaoviec btn btn-danger" data-file="1">Xoá </button>';
-                        echo '</td>';
-                    }else if ($data2[$i]->status == 3) {
-                        echo '<span class="happy label label-success">Công việc giải quyết xong </span>';
-                        echo '</td>
+                echo '<button value='.$data2[$i]->id.' class="giaoviec btn btn-danger" data-file="1">Xoá </button>';
+                echo '</td>';
+            }else if ($data2[$i]->status == 3) {
+                echo '<div class="label la label-success myFont">Đã giải  quyết xong</div>';
+                echo '</td>
                         <td class="text-center">';
-                        echo '<button value='.$data2[$i]->id.' class="giaoviec btn btn-danger" data-file="1">Xoá </button>';
-                        echo '</td>';
-                    }
+                echo '<button value='.$data2[$i]->id.' class="giaoviec btn btn-danger" data-file="1">Xoá </button>';
+                echo '</td>';
+            }
 
-                echo '</tr>';
+        }
 
-                }
-
-                ?>
-
-                </tbody>
+        echo '</tr>';
+    echo '</tbody>
             </table>
-        </div>
     </div>
-</div>
+</div>';
+}
+?>
+
+
+
+
+
+
+
+
+
 
 
 <div id="fullCalModal" class="modal fade">
