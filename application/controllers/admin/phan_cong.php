@@ -34,15 +34,18 @@ class Phan_cong extends CI_Controller
 
     public function getCongViec(){
 
+        $mcb = $_SESSION['ma_can_bo'];
+
+        $where = "ma_can_bo_nhan = '$mcb' AND status = 2 ";
+        $this->db->where($where);
         $query = $this->db->get('calendar');
         $events = array();
         foreach($query->result_array() as $row )
         {
             $array = array();
             $array['title'] = $row['title'];
-            $array['start'] = $row['startdate'];
+            $array['start'] = $row['enddate'];
             $array['end'] = $row['enddate'];
-            $array['id']=$row['id'];
             array_push($events,$array);
 
         }

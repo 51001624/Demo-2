@@ -132,17 +132,7 @@
 	}
 
 
-	$(document).on("click", "#lovely", function(e) {
 
-		bootbox.prompt("Nhập lỗi:",function(res){
-			if(res==null){
-				alert("Nothing");
-			}else{
-				bootbox.alert("Hi: "+res);
-			}
-		})
-
-	});
 
 
 </script>

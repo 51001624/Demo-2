@@ -9,6 +9,13 @@
     </li>
 </ol>
 
+
+<div id="eventContent"  style="display:none;">
+    Ngày kết thúc: <span id="endTime"></span><br>
+    <p id="eventInfo"></p>
+</div>
+
+
 <div id='calendar'></div>
 <div id="fullCalModal" class="modal fade">
     <div class="modal-dialog">
@@ -67,52 +74,7 @@
     var linkDelete = mylink+"admin/phan_cong/deleteCongViec";
     var linkUpdate = mylink+"admin/phan_cong/updateCongViec";
 
-    console.log($('#taskForm'));
 
-    $.fn.goValidate = function(){
-        var form = this,
-            input = form.find('input:text');
-        var validate = function(klass,value){
-            var isValid = true,
-                error = '';
-            if(!value&&/required/.test(klass)){
-                error="Công việc chưa nhập;"
-                isValid = false;
-            }
-            return{
-                isValid: isValid,
-                error:error
-            }
-        };
-
-        var showError = function(input){
-            var klass = input.attr('class'),
-                value = input.val(),
-                test = validate(klass,value);
-            input.removeClass('invalid');
-            $('#form-error').addClass('hide');
-            if(!test.isValid){
-                input.addClass('invalid');
-                if(typeof input.data("shown")=="undefined"||input.data("shown") == false){
-                    input.popover('show');
-                }else{
-                    input.popover('hide');
-                }
-            }
-        };
-        input.keyup(function(){
-            showError($(this));
-        }) ;
-
-        form.submit(function(e){
-            inputs.each(function() { /* test each input */
-                if ($(this).is('.required') || $(this).hasClass('invalid')) {
-                    showError($(this));
-                }
-            });
-        });
-        return this;
-    };
 
 
 
@@ -126,24 +88,24 @@
         }
     });
 
-    var id = 0;
-    var myStuff=JSON.parse(json_events);
 
-    if(myStuff.length==0){
-        id = 0;
-    }else{
-        id = myStuff[myStuff.length-1].id;
-    }
 
-    id = parseInt(id);
-
-    $(document).ready(function() {
+   $(document).ready(function() {
      var calendar =   $('#calendar').fullCalendar({
             header: {
                 left: 'prev,next today',
                 center: 'title'
                 /*with week and day*/
             },
+
+         eventRender: function (event, element) {
+             element.attr('href', 'javascript:void(0);');
+             element.click(function () {
+                 $("#endTime").html(moment(event.start).format('DD-MM-YYYY'));
+                 $("#eventContent").dialog({modal: true, title: event.title, width: 350});
+             });
+         },
+         eventTextColor: 'black',
 
          timeFormat: 'h:ma',      // the output i.e. "10:00pm"
          monthNames: ["Tháng một","Tháng hai","Tháng ba","Tháng tư","Tháng năm","Tháng sáu","Tháng bảy", "Tháng tám", "Tháng chín", "Tháng mười", "Tháng mười một", "Tháng mười hai" ],
@@ -164,175 +126,17 @@
 
          },
 
-         eventClick: function(event) {
-             $('#modalTitle').html("Sửa tên công việc ");
-             $('#fullCalModal').modal();
-             $('#datetimepickerStart').datetimepicker({
-                 sideBySide: true,
-                 format: 'DD-MM-YYYY-HH-mm'
-             });
-             $('#datetimepickerEnd').datetimepicker({
-                 sideBySide: true,
-                 format: 'DD-MM-YYYY-HH-mm'
-             });
-
-                 $("button#submit").click(function(){
-                     var k = document.getElementById('Hello').value;
-                     $.post(linkUpdate,
-                         { // Data Sending With Request To Server
-                             myTitle: k,
-                             myID: event.id
-
-                         },
-                         function (response) { // RequireCallback Function
-                             //var myData = JSON.parse(response);
-                             calendar.fullCalendar("removeEvents", event.id);
-                             var myData=JSON.parse(response);
-                             title = myData[0].title;
-                             start = myData[0].start;
-                             id = myData[0].id;
-                             end= myData[0].end;
-                             calendar.fullCalendar('renderEvent',
-                                 {
-                                     title: title,
-                                     start: start,
-                                     id:id,
-                                     allDay:false,
-                                     end: end
-                                 },
-                                 true // make the event "stick"
-                             );
-                         }
-                     );
-
-                     $("#fullCalModal").modal('hide');
-                 });
-
-
-         },
 
          selectable: true,
          defaultDate: '2015-12-01',
          editable: true,
          selectHelper: true,
          eventLimit: true,
-         events: JSON.parse(json_events),
-
-        /*Temporatory not use select */
-         /*
-          select: function(start,end) {
-
-          $('#modalTitle').html("Sửa tên công việc ");
-          $('#fullCalModal').modal();
-
-          $('#datetimepickerStart').datetimepicker({
-          sideBySide: true,
-          format: 'DD-MM-YYYY HH:mm'
-          });
-
-          $('#datetimepickerEnd').datetimepicker({
-          sideBySide: true,
-          format: 'DD-MM-YYYY HH-mm'
-          });
-
-
-
-          $('#taskForm').goValidate();
-
-
-
-
-          /*   $('#taskForm').formValidation({
-          framework: 'bootstrap',
-          fields:{
-          task:{
-          validators:{
-          notEmpty:{
-          message:'Tên công việc chưa nhập!'
-          }
-          }
-          }
-          }
-          });
-
-        document.getElementById('Hello').value="";
-        document.getElementById('datetimepickerStart').value=start.format("DD-MM-YYYY HH:mm");
-        document.getElementById('datetimepickerEnd').value=end.format('DD-MM-YYYY HH:mm');
-
-
-        $("button#submit").click(function () {
-
-
-            var title = document.getElementById('Hello').value;
-            var startFromSource = document.getElementById('datetimepickerStart').value;
-            var endFromSource = document.getElementById('datetimepickerEnd').value;
-            var start =startFromSource.substr(6,4)+"-"+startFromSource.substr(3,2)
-                +"-"+startFromSource.substr(0,2)+"T"
-                +startFromSource.substr(11,5)+":00";
-            var end =endFromSource.substr(6,4)+"-"+endFromSource.substr(3,2)
-                +"-"+endFromSource.substr(0,2)+"T"
-                +endFromSource.substr(11,5)+":00";
-
-            id = id+1;
-            calendar.fullCalendar('renderEvent',
-                {
-                    title: title,
-                    start: start,
-                    id: id,
-                    allDay:false,
-                    end: end
-                },
-                true // make the event "stick"
-            );
-            $.post(link1,
-                { // Data Sending With Request To Server
-                    myTitle: title,
-                    startDate: start,
-                    myID: id,
-                    allDay:false,
-                    endDate: end
-
-                },
-                function (response) { // RequireCallback Function
-                    //var myData = JSON.parse(response);
-                    // calendar.fullCalendar("removeEvents", event.id);
-
-                }
-            );
-            calendar.fullCalendar('unselect');
-
-            $("#fullCalModal").modal('hide');
-        });
-    },
-    */
-
-         /*
-          eventRender: function(event, element) {
-          element.append( "<span  class='closeon'>X</span>" );
-          element.find(".closeon").click(function() {
-
-          var deleteOrNot = prompt('Bạn có muốn xoá công việc này? ', event.title, { buttons: { Ok: true, Cancel: false} });
-
-          if(deleteOrNot){
-          calendar.fullCalendar("removeEvents", event.id);
-          var myDeletedID = event.id;
-          $.post(linkDelete,
-          { // Data Sending With Request To Server
-
-          myID:myDeletedID
-          },
-          function() { // Required Callback Function
-
-          }
-
-          );
-          }
-          });
-          }
-          */
+         events: JSON.parse(json_events)
 
         });
 
 
     });
+
 </script>

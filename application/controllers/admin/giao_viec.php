@@ -24,11 +24,12 @@ class Giao_viec extends CI_Controller
     {
         $this->load->model('Cong_viec');
         $data1 = $this->Cong_viec->get_users($_SESSION['level'],$_SESSION['ma_can_bo']);
+        $my_phong_ban = $this->Cong_viec->my_phong_ban($data1);
         $data['title'] = 'Giao công việc  - UBND Huyện Bến Lức';
         $this->load->view('templates/header', $data);
         $this->load->view('templates/aside');
         $this->load->view('templates/nav');
-        $this->load->view('admin/giao_cong_viec_view',array('data1'=>$data1));
+        $this->load->view('admin/giao_cong_viec_view',array('data1'=>$data1,'my_phong_ban'=>$my_phong_ban));
         $this->load->view('templates/footer');
     }
 
@@ -46,7 +47,7 @@ class Giao_viec extends CI_Controller
         );
 
         $this->db->insert('calendar',$data1);
-        echo "Đã giao công việc, chờ xác nhận !";
+        echo "ok";
 
 
     }
@@ -57,7 +58,17 @@ class Giao_viec extends CI_Controller
         $deletedID = $_POST['id'];
         $this->db->where('id',$deletedID);
         $this->db->delete('calendar');
-       echo "Da xoa";
+    }
+
+    public function xoaTatCaTheoMaCanBo(){
+        $deletedAllmcb = $_POST['mcb'];
+
+        $where1 = " ma_can_bo_nhan = '$deletedAllmcb' AND status = 0 ";
+        $where2 = " ma_can_bo_nhan = '$deletedAllmcb' AND status = 3 ";
+        $where = "$where1 OR $where2";
+
+        $this->db->where($where);
+        $this->db->delete('calendar');
     }
 
 

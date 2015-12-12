@@ -19,6 +19,35 @@ class Cong_viec extends CI_Model{
         }
     }
 
+    public function my_phong_ban($arrayOfUsers){
+        for($i = 0; $i<count($arrayOfUsers);$i++){
+            switch ($arrayOfUsers[$i]->level) {
+                case 11:
+                    $my_phong_ban[] = "PHÒNG TIẾP NHẬN HỒ SƠ";
+                    break;
+                case 12:
+                    $my_phong_ban[] = "PHÒNG TIẾP NHẬN VÀ GIAO TRẢ HỒ SƠ";
+                    break;
+                case 13:
+                    $my_phong_ban[] = "PHÒNG GIAO TRẢ HỒ SƠ";
+                    break;
+                case 21:
+                    $my_phong_ban[] = "PHÒNG TƯ PHÁP";
+                    break;
+                case 22:
+                    $my_phong_ban[] = "PHÒNG ĐỊA CHÍNH";
+                    break;
+                case 100:
+                    $my_phong_ban[] = "CHỦ TỊCH";
+                    break;
+                default:
+                    break;
+            }
+        }
+
+        return  $my_phong_ban;
+    }
+
     public function get_cong_viec($mcb){
 
         $this->db->where('ma_can_bo_giao',$mcb);

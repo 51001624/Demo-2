@@ -69,8 +69,10 @@ else{
                 for($i = 0; $i<count($data2); $i++) {
                     $listTask = $this->db->where('ma_can_bo', $data2[$i]->ma_can_bo_giao)->get('user');
                     $myUserRow = $listTask->result()[0];
+                    $this->load->model('Cong_viec');
+                    $my_phong_ban = $this->Cong_viec->my_phong_ban($listTask->result());
                     echo '<tr>';
-                    echo '<td><img src="' . base_url('upload/' . $myUserRow->avatar) . '" alt="">' . $myUserRow->hoten . '<span class="user-link user-subhead" >' . $myUserRow->ma_can_bo . '</span></td>';
+                    echo '<td><img src="' . base_url('upload/' . $myUserRow->avatar) . '" alt="">' . $myUserRow->hoten . '<span class="user-link user-subhead" >' . $my_phong_ban[0]. '</span></td>';
                     echo '<td class="setWidth concat"><div style="font-weight: 500; font-size: larger;">'.$data2[$i]->title.'</div></td>';
                     $dbdate = $data2[$i]->enddate;
                     $myDate = substr($dbdate,8,2).'/'.substr($dbdate,5,2).'/'.substr($dbdate,0,4);
@@ -78,7 +80,7 @@ else{
                 if($data2[$i]->status==2) {
                     echo '<td >
 <form class="form-inline" style="margin-top: 10px;">
-  <div class="form-group" >
+  <div class="my2015 form-group" >
       <div class="input-group" >
           <input  value="'.$data2[$i]->phan_tram.'" type="number" step="10" min="0" max="100" style="width: 100px;" data-file="'.$data2[$i]->id.'" class="form-control"  >
           <div class="input-group-addon">%</div>
@@ -119,11 +121,7 @@ else{
     var linkUpdate = mylink+"admin/nhan_viec/updateCongViec";
     var link2 = mylink+"admin/nhan_viec";
     var status = 0;
-
     var myValue = 0;
-
-
-
 
     $(function() {
 
@@ -155,7 +153,7 @@ else{
         var $this = $(this),
             id = $this.data('file');
 
-        myValue = $(this).val();
+        myValue = parseInt($(this).val());
         if (myValue> 100
             && e.keyCode != 46 // delete
             && e.keyCode != 8 // backspace
