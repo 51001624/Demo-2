@@ -63,8 +63,8 @@ class Giao_viec extends CI_Controller
     public function xoaTatCaTheoMaCanBo(){
         $deletedAllmcb = $_POST['mcb'];
 
-        $where1 = " ma_can_bo_nhan = '$deletedAllmcb' AND status = 0 ";
-        $where2 = " ma_can_bo_nhan = '$deletedAllmcb' AND status = 3 ";
+        $where1 = " ma_can_bo_giao = '$deletedAllmcb' AND status = 0 ";
+        $where2 = " ma_can_bo_giao = '$deletedAllmcb' AND status = 3 ";
         $where = "$where1 OR $where2";
 
         $this->db->where($where);

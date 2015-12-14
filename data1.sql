@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.1.12
+-- version 4.5.0.2
 -- http://www.phpmyadmin.net
 --
--- Host: 127.0.0.1
--- Generation Time: Dec 04, 2015 at 06:49 PM
--- Server version: 5.6.16
--- PHP Version: 5.5.11
+-- Host: localhost
+-- Generation Time: Dec 14, 2015 at 05:12 PM
+-- Server version: 10.0.17-MariaDB
+-- PHP Version: 5.6.14
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -14,7 +14,7 @@ SET time_zone = "+00:00";
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8 */;
+/*!40101 SET NAMES utf8mb4 */;
 
 --
 -- Database: `data1`
@@ -26,11 +26,10 @@ SET time_zone = "+00:00";
 -- Table structure for table `cach_thuc`
 --
 
-CREATE TABLE IF NOT EXISTS `cach_thuc` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `noi_dung` text NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=10 ;
+CREATE TABLE `cach_thuc` (
+  `id` int(11) NOT NULL,
+  `noi_dung` text NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `cach_thuc`
@@ -45,7 +44,38 @@ INSERT INTO `cach_thuc` (`id`, `noi_dung`) VALUES
 (6, 'Trực tiếp tại UBND xã, phường, thị trấn hoặc nộp hồ sơ qua hệ thống bưu chính.'),
 (7, 'Trực tiếp tại UBND xã, phường, thị trấn hoặc qua hệ thống bưu chính.'),
 (8, ' Trực tiếp tại UBND xã, phường, thị trấn.'),
-(9, 'Trực tiếp tại UBND xã, phường, thị trấn.');
+(9, '\r\nTrực tiếp tại UBND xã, phường, thị trấn.');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `calendar`
+--
+
+CREATE TABLE `calendar` (
+  `id` int(11) NOT NULL,
+  `ma_can_bo_giao` text NOT NULL,
+  `ma_can_bo_nhan` text NOT NULL,
+  `title` text CHARACTER SET utf32 COLLATE utf32_unicode_ci NOT NULL,
+  `startdate` varchar(48) NOT NULL,
+  `enddate` varchar(48) NOT NULL,
+  `phan_tram` int(3) NOT NULL,
+  `status` int(2) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `calendar`
+--
+
+INSERT INTO `calendar` (`id`, `ma_can_bo_giao`, `ma_can_bo_nhan`, `title`, `startdate`, `enddate`, `phan_tram`, `status`) VALUES
+(4, '08', 'bantp', 'Công việc 2', '2015-12-13', '2015-12-19', 0, 2),
+(5, '08', 'bantp', 'Việc 4', '2015-12-13', '2015-12-18', 0, 2),
+(6, '08', 'bantp', 'Việc 5', '2015-12-13', '2015-12-18', 0, 2),
+(8, '08', 'bantp', 'Việc 6', '2015-12-13', '2015-12-18', 0, 2),
+(9, '08', 'bantp', 'Việc 7', '2015-12-13', '2015-12-18', 0, 2),
+(12, 'bantp', 'tiepnhan', 'MN', '2015-12-14', '2015-12-14', 0, 2),
+(13, '08', 'bantp', 'Đi xem phim', '2015-12-14', '2015-12-15', 0, 1),
+(14, '08', 'bantp', 'Đi xem phim', '2015-12-14', '2015-12-15', 0, 1);
 
 -- --------------------------------------------------------
 
@@ -53,11 +83,10 @@ INSERT INTO `cach_thuc` (`id`, `noi_dung`) VALUES
 -- Table structure for table `can_cu`
 --
 
-CREATE TABLE IF NOT EXISTS `can_cu` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `noi_dung` text NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=32 ;
+CREATE TABLE `can_cu` (
+  `id` int(11) NOT NULL,
+  `noi_dung` text NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `can_cu`
@@ -102,11 +131,10 @@ INSERT INTO `can_cu` (`id`, `noi_dung`) VALUES
 -- Table structure for table `co_quan`
 --
 
-CREATE TABLE IF NOT EXISTS `co_quan` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `noi_dung` text NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=5 ;
+CREATE TABLE `co_quan` (
+  `id` int(11) NOT NULL,
+  `noi_dung` text NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `co_quan`
@@ -124,11 +152,10 @@ INSERT INTO `co_quan` (`id`, `noi_dung`) VALUES
 -- Table structure for table `doi_tuong`
 --
 
-CREATE TABLE IF NOT EXISTS `doi_tuong` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `noi_dung` text NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=6 ;
+CREATE TABLE `doi_tuong` (
+  `id` int(11) NOT NULL,
+  `noi_dung` text NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `doi_tuong`
@@ -144,14 +171,32 @@ INSERT INTO `doi_tuong` (`id`, `noi_dung`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `gcm_user`
+--
+
+CREATE TABLE `gcm_user` (
+  `id` int(11) NOT NULL,
+  `cmnd` int(11) NOT NULL,
+  `gcmregid` varchar(200) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `gcm_user`
+--
+
+INSERT INTO `gcm_user` (`id`, `cmnd`, `gcmregid`) VALUES
+(1, 222222222, 'APA91bGt6TUjgsTmCmk2iGA1Mg_441MyNrKtK9GKa0SSHSBTqSNQImxTAKUuckMdWWdB3v2s7Zcgh0FdHjSMo_QKPD3t06qXsokmCojNzYEaZdef6L2HiP2hLl8Jk1c8pRQIoDti97e2Y-QX1ZEZq4gv21AKD-tCKQ');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `giai_quyet`
 --
 
-CREATE TABLE IF NOT EXISTS `giai_quyet` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `noi_dung` text NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=33 ;
+CREATE TABLE `giai_quyet` (
+  `id` int(11) NOT NULL,
+  `noi_dung` text NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `giai_quyet`
@@ -197,43 +242,32 @@ INSERT INTO `giai_quyet` (`id`, `noi_dung`) VALUES
 -- Table structure for table `ho_so`
 --
 
-CREATE TABLE IF NOT EXISTS `ho_so` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `ho_so` (
+  `id` int(11) NOT NULL,
   `mshs` varchar(200) NOT NULL,
   `name` varchar(200) NOT NULL,
   `type` int(11) NOT NULL,
   `cmnd` int(11) NOT NULL,
   `status` int(11) NOT NULL,
   `mcb` varchar(200) NOT NULL,
+  `lich_su_ho_so` text NOT NULL,
+  `num_error` int(11) NOT NULL,
   `ngay_tra` varchar(200) NOT NULL,
   `sdt` varchar(200) NOT NULL,
   `dia_chi` text NOT NULL,
   `tt_giay_to_da_thu` text NOT NULL,
   `note` text NOT NULL,
   `error` text NOT NULL,
-  `tien_thu` int(11) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=18 ;
+  `tien_thu` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `ho_so`
 --
 
-INSERT INTO `ho_so` (`id`, `mshs`, `name`, `type`, `cmnd`, `status`, `mcb`, `ngay_tra`, `sdt`, `dia_chi`, `tt_giay_to_da_thu`, `note`, `error`, `tien_thu`) VALUES
-(2, '103551-091115-TP10-1', 'Khai tử', 0, 283949595, 5, 'nhanvatra', '09/11/2015', '0999999999', '', '', '', '', 0),
-(3, '105728-091115-DD36-4', 'biến động đất', 1, 232465434, 2, 'bandd', '', '0999999999', '', ' Đơn điều chỉnh.<br>+<b>1</b>+ Đơn đăng ký biến động đất đai tài sản gắn liền với đất(Mẫu số 09/ĐK).<br>+<b>1</b>+ Biên bản sai sót.+<b>5</b>+', '', '', 0),
-(4, '232329-091115-DD32-05', 'sở hửu', 1, 435776767, 2, 'bandd', '', '0999999999', '', ' Đơn đề nghị cấp lại cấp đổi giấy chứng nhận quyền sử dụng đất quyền sở hữu nhà ở và tài sản khác gắn liền với đất( mẫu số 10/ĐK).<br>+<b>1</b>+ Bản gốc giấy chứng nhận đã cấp.<br>+<b>1</b>+ Trích lục( trích đo) bản đồ địa chính<br>+<b>2</b>+ Biên bản thẩm tra ranh( nếu tăng giảm diện tích)+<b>1</b>+', 'Hình ảnh', '', 0),
-(5, '002524-101115-TP14-2', 'Đk kết hôn', 0, 343766765, 8, 'nhanvatra', '09/11/2015', '0999999999', '', ' Tờ khai (theo mẫu).<br>+<b>1</b>+ Xuất trình bản sao giấy tờ hộ tịch đã cấp hợp lệ trước đây (nếu có); trong trường hợp không có bản sao giấy tờ hộ tịch thì đương sự phải tự cam đoan về việc đã đăng ký nhưng sổ hộ tịch không còn lưu được và chịu trách nhiệm về nội dung cam đoan. Đối với việc đăng ký lại việc kết hôn thì bản cam đoan phải có xác nhận của 02 người làm chứng biết rõ về việc đã đăng ký và có xác nhận của Ủy ban nhân dân cấp xã về chữ ký của hai người làm chứng.<br>+<b>1</b>+ Bản sao giấy chứng minh nhân dân hoặc Hộ chiếu của người đi đăng ký hộ tịch để xác định về cá nhân người đó.<br>+<b>1</b>+ Bản sao Sổ hộ khẩu Sổ đăng ký tạm trú (đối với công dân Việt Nam ở trong nước); Thẻ thường trú Thẻ tạm trú hoặc Chứng nhận tạm trú (đối với người nước ngoài cư trú tại Việt Nam) để làm căn cứ xác định thẩm quyền đăng ký.<br>Bản sao các giấy tờ nêu trên kèm bản chính để đối chiếu hoặc bản sao có chứng thực.+<b>1</b>+', '', 'Không đủ hồ sơ', 0),
-(6, '224246-121115-TP03-3', 'Hồ thế hiệp', 0, 234345456, 7, 'nhanvatra', '', '0999999999', '', ' Phiếu yêu cầu chứng thực.<br>+<b>1</b>+ Văn bản từ chối nhận tài sản thừa kế (mẫu số 60/VBTC).<br>+<b>2</b>+', '', ' Phiếu yêu cầu chứng thực.+Sai+ Văn bản từ chối nhận tài sản thừa kế (mẫu số 60/VBTC).+Không đủ+-lỗi', 10000),
-(9, '005344-131115-TP03-2', 'hoàng đức', 0, 232323232, 4, 'nhanvatra', '', '0989777676', '', ' Phiếu yêu cầu chứng thực.+<b>1</b>+ Văn bản từ chối nhận tài sản thừa kế (mẫu số 60/VBTC).+<b>1</b>+', '', '', 10000),
-(10, '012238-131115-DD34-5', 'Phúc Quang', 1, 223212342, 2, 'bandd', '', '0999999999', '', ' Đơn cớ mất có xác nhận của công an.<br>+<b>1</b>+ Giấy xác nhận đăng báo đài truyền thanh.<br> +<b>1</b>+ Đơn đề nghị cấp lại cấp đổi giấy chứng nhận quyền sử dụng đất quyền sở hữu nhà ở và tài sản khác gắn liền với đất( mẫu số 10/ĐK).<br>+<b>1</b>+ Bản sao giấy chứng nhận đã cấp.<br>+<b>1</b>+ Thông báo niêm yết mất giấy của UBND trong thời gian 15 ngày.<br>+<b>1</b>+ Trích lục bản đồ địa chính.<br>+<b>1</b>+', '', '', 0),
-(11, '174555-141115-TP13-3', 'Nguyễn văn A', 0, 232343456, 0, 'nhanvatra', '', '0989777676', '', ' Tờ khai đăng ký kết hôn (mẫu TP/HT-2013-TKĐKKH).+<b>1</b>+ Bản sao giấy chứng minh nhân dân hoặc Hộ chiếu của người đi đăng ký hộ tịch để xác định về cá nhân người đó.+<b>1</b>+ Bản sao Sổ hộ khẩu Sổ đăng ký tạm trú (đối với công dân Việt Nam ở trong nước); Thẻ thường trú Thẻ tạm trú hoặc Chứng nhận tạm trú (đối với người nước ngoài cư trú tại Việt Nam) để làm căn cứ xác định thẩm quyền đăng ký.Bản sao các giấy tờ nêu trên kèm bản chính để đối chiếu hoặc bản sao có chứng thực.+<b>1</b>+', '', '', 0),
-(12, '223315-141115-TP18-2', 'Trần Khánh A', 0, 343434434, 2, 'bantp', '', '0989777676', '', ' Tờ khai (theo mẫu).+<b>1</b>+ Danh mục tài sản riêng được lập khi đăng ký giám hộ và danh mục tài sản hiện tại của người được giám hộ (nếu có).+<b>1</b>+ Quyết định công nhận việc giám hộ đã cấp trước đây.+<b>1</b>+ Xuất trình các giấy tờ chứng minh đủ điều kiện chấm dứt thay đổi việc giám hộ.+<b>1</b>+ Bản sao giấy chứng minh nhân dân hoặc Hộ chiếu của người đi đăng ký hộ tịch để xác định về cá nhân người đó.+<b>1</b>+ Bản sao Sổ hộ khẩu Sổ đăng ký tạm trú (đối với công dân Việt Nam ở trong nước); Thẻ thường trú Thẻ tạm trú hoặc Chứng nhận tạm trú (đối với người nước ngoài cư trú tại Việt Nam) để làm căn cứ xác định thẩm quyền đăng ký.+<b>1</b>+ Bản sao các giấy tờ nêu trên kèm bản chính để đối chiếu hoặc bản sao có chứng thực.+<b>1</b>+', '', ' ', 15000),
-(13, '021010-151115-DD34-3', 'quoc hai', 1, 234354323, 0, 'nhanvatra', '', '0989777676', '', ' Đơn cớ mất có xác nhận của công an.<br>+<b>1</b>+ Giấy xác nhận đăng báo đài truyền thanh.<br> +<b>1</b>+ Đơn đề nghị cấp lại cấp đổi giấy chứng nhận quyền sử dụng đất quyền sở hữu nhà ở và tài sản khác gắn liền với đất( mẫu số 10/ĐK).<br>+<b>1</b>+ Bản sao giấy chứng nhận đã cấp.<br>+<b>1</b>+ Thông báo niêm yết mất giấy của UBND trong thời gian 15 ngày.<br>+<b>1</b>+ Trích lục bản đồ địa chính.<br>+<b>1</b>+', '', '', 0),
-(14, '223820-241115-TP18-2', 'quoc hai', 0, 343433333, 5, 'nhanvatra', '24/11/2015', '0999999999', '', ' Tờ khai (theo mẫu).<br>+<b>1</b>+ Danh mục tài sản riêng được lập khi đăng ký giám hộ và danh mục tài sản hiện tại của người được giám hộ (nếu có).<br>+<b>1</b>+ Quyết định công nhận việc giám hộ đã cấp trước đây.<br>+<b>1</b>+ Xuất trình các giấy tờ chứng minh đủ điều kiện chấm dứt thay đổi việc giám hộ.<br>+<b>1</b>+ Bản sao giấy chứng minh nhân dân hoặc Hộ chiếu của người đi đăng ký hộ tịch để xác định về cá nhân người đó.<br>+<b>1</b>+ Bản sao Sổ hộ khẩu Sổ đăng ký tạm trú (đối với công dân Việt Nam ở trong nước); Thẻ thường trú Thẻ tạm trú hoặc Chứng nhận tạm trú (đối với người nước ngoài cư trú tại Việt Nam) để làm căn cứ xác định thẩm quyền đăng ký.<br>+<b>1</b>+ Bản sao các giấy tờ nêu trên kèm bản chính để đối chiếu hoặc bản sao có chứng thực.<br>+<b>1</b>+', 'kèm hình ảnh', '', 10000),
-(15, '225015-241115-TP14-15', 'Trần Trung Hiếu', 0, 454555454, 2, 'bantp', '', '0999999999', '', ' Tờ khai (theo mẫu).<br>+<b>1</b>+ Xuất trình bản sao giấy tờ hộ tịch đã cấp hợp lệ trước đây (nếu có); trong trường hợp không có bản sao giấy tờ hộ tịch thì đương sự phải tự cam đoan về việc đã đăng ký nhưng sổ hộ tịch không còn lưu được và chịu trách nhiệm về nội dung cam đoan. Đối với việc đăng ký lại việc kết hôn thì bản cam đoan phải có xác nhận của 02 người làm chứng biết rõ về việc đã đăng ký và có xác nhận của Ủy ban nhân dân cấp xã về chữ ký của hai người làm chứng.<br>+<b>1</b>+ Bản sao giấy chứng minh nhân dân hoặc Hộ chiếu của người đi đăng ký hộ tịch để xác định về cá nhân người đó.<br>+<b>1</b>+ Bản sao Sổ hộ khẩu Sổ đăng ký tạm trú (đối với công dân Việt Nam ở trong nước); Thẻ thường trú Thẻ tạm trú hoặc Chứng nhận tạm trú (đối với người nước ngoài cư trú tại Việt Nam) để làm căn cứ xác định thẩm quyền đăng ký.<br>Bản sao các giấy tờ nêu trên kèm bản chính để đối chiếu hoặc bản sao có chứng thực.+<b>1</b>+', '', '', 0),
-(16, '010118-251115-TP02-5', 'Nguyễn văn C', 0, 343454445, 2, 'bantp', '', '0999999999', '', ' Kết quả giám định sức khỏe của người viết di chúc.<br>+<b>1</b>+ Di chúc.<br>+<b>1</b>+ Phiếu yêu cầu chứng thực (theo mẫu).<br>+<b>1</b>+ Xuất trình giấy tờ tuỳ thân (hộ khẩu chứng minh nhân dân) và giấy tờ cần thiết để chứng minh quyền sở hữu quyền sử dụng đối với tài sản.<br>+<b>1</b>+', '', '', 40000),
-(17, '030910-291115-TP05-4', 'quoc hai', 0, 343444545, 0, 'nhanvatra', '', '0999999999', '', ' Tờ khai (theo mẫu).<br>+<b>1</b>+ Giấy chứng sinh (bản chính).<br>+<b>1</b>+ Xuất trình giấy chứng nhận kết hôn (nếu có).<br>+<b>1</b>+ Bản sao giấy chứng minh nhân dân hoặc Hộ chiếu của người đi đăng ký hộ tịch để xác định về cá nhân người đó.<br>+<b>1</b>+ Bản sao Sổ hộ khẩu Sổ đăng ký tạm trú (đối với công dân Việt Nam ở trong nước); Thẻ thường trú Thẻ tạm trú hoặc Chứng nhận tạm trú (đối với người nước ngoài cư trú tại Việt Nam) để làm căn cứ xác định thẩm quyền đăng ký.<br>Bản sao các giấy tờ nêu trên kèm bản chính để đối chiếu hoặc bản sao có chứng thực.<br>+<b>1</b>+', '', '', 0);
+INSERT INTO `ho_so` (`id`, `mshs`, `name`, `type`, `cmnd`, `status`, `mcb`, `lich_su_ho_so`, `num_error`, `ngay_tra`, `sdt`, `dia_chi`, `tt_giay_to_da_thu`, `note`, `error`, `tien_thu`) VALUES
+(1, '212058-141215-TP01-1', 'Hồ Sơ 1', 0, 123456789, 0, 'tiepnhan', '/tiepnhan/bantp/tiepnhan/bantp/tiepnhan/bantp', 3, '14/12/2015', '1234567890', 'Ktc', ' Bản chính.<br>+<b>1</b>+ Bản sao cần chứng thực.<br>+<b>1</b>+', '', ' Bản chính.++ Bản sao cần chứng thực.++-', 14000),
+(2, '212121-141215-TP01-1', 'Hồ Sơ 2', 0, 123456789, 5, 'trave', '/tiepnhan/bantp', 0, '14/12/2015', '01274176534', 'Ktx', ' Bản chính.<br>+<b>1</b>+ Bản sao cần chứng thực.<br>+<b>1</b>+', '', '', 4000);
 
 -- --------------------------------------------------------
 
@@ -241,11 +275,10 @@ INSERT INTO `ho_so` (`id`, `mshs`, `name`, `type`, `cmnd`, `status`, `mcb`, `nga
 -- Table structure for table `ket_qua`
 --
 
-CREATE TABLE IF NOT EXISTS `ket_qua` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `noi_dung` text NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=20 ;
+CREATE TABLE `ket_qua` (
+  `id` int(11) NOT NULL,
+  `noi_dung` text NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `ket_qua`
@@ -278,11 +311,10 @@ INSERT INTO `ket_qua` (`id`, `noi_dung`) VALUES
 -- Table structure for table `le_phi`
 --
 
-CREATE TABLE IF NOT EXISTS `le_phi` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `noi_dung` text NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=18 ;
+CREATE TABLE `le_phi` (
+  `id` int(11) NOT NULL,
+  `noi_dung` text NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `le_phi`
@@ -313,13 +345,12 @@ INSERT INTO `le_phi` (`id`, `noi_dung`) VALUES
 -- Table structure for table `map`
 --
 
-CREATE TABLE IF NOT EXISTS `map` (
-  `node_id` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `map` (
+  `node_id` int(11) NOT NULL,
   `node_name` varchar(200) NOT NULL,
   `p_id` int(11) NOT NULL,
-  `note` varchar(200) NOT NULL,
-  PRIMARY KEY (`node_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=45 ;
+  `note` varchar(200) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `map`
@@ -377,11 +408,10 @@ INSERT INTO `map` (`node_id`, `node_name`, `p_id`, `note`) VALUES
 -- Table structure for table `mau_don`
 --
 
-CREATE TABLE IF NOT EXISTS `mau_don` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `noi_dung` text NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=27 ;
+CREATE TABLE `mau_don` (
+  `id` int(11) NOT NULL,
+  `noi_dung` text NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `mau_don`
@@ -421,33 +451,50 @@ INSERT INTO `mau_don` (`id`, `noi_dung`) VALUES
 -- Table structure for table `message`
 --
 
-CREATE TABLE IF NOT EXISTS `message` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `message` (
+  `id` int(11) NOT NULL,
   `name` varchar(200) NOT NULL,
   `vs` varchar(200) NOT NULL,
   `message` text NOT NULL,
-  `week` int(11) NOT NULL,
-  `year` int(11) NOT NULL,
-  `date` varchar(200) NOT NULL,
-  `viewed` varchar(200) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=19 ;
+  `date` varchar(200) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `message`
 --
 
-INSERT INTO `message` (`id`, `name`, `vs`, `message`, `week`, `year`, `date`, `viewed`) VALUES
-(9, 'nhan va tra', '3-10', 'hey', 45, 2015, '10-11-2015', ''),
-(10, 'nhan va tra', '3-10', 'ok', 45, 2015, '11-11-2015', ''),
-(11, 'nhan va tra', '3-10', 'good', 45, 2015, '11-11-2015', ''),
-(12, 'nhan va tra', '3-10', 'fine', 47, 2015, '17-11-2015', ''),
-(13, 'phong ban tp', '3-10', 'good bye', 48, 2015, '22-11-2015', ''),
-(14, 'nhan va tra', '3-10', 'ok hey', 48, 2015, '22-11-2015', ''),
-(15, 'phong ban tp', '3-10', 'thanks', 48, 2015, '23-11-2015', ''),
-(16, 'nhan va tra', '3-10', 'wellcome', 49, 2015, '02-12-2015', ''),
-(17, 'phong ban tp', '3-10', 'anything else', 49, 2015, '02-12-2015', ''),
-(18, 'nhan va tra', '3-10', 'what up?', 49, 2015, '03-12-2015', '');
+INSERT INTO `message` (`id`, `name`, `vs`, `message`, `date`) VALUES
+(16, 'phong ban tp', '2-3', 'hey', '2015-10-31 08:12:47pm'),
+(17, 'tiep nhan tp', '2-3', 'ok', '2015-10-31 08:12:52pm'),
+(18, 'phong ban tp', '3-4', 'hello', '2015-10-31 08:13:09pm'),
+(19, 'tiep nhan tp', '2-3', 'where?', '2015-10-31 08:13:18pm'),
+(20, 'chu tich', '2-8', 'ek', '2015-11-01 03:15:40am'),
+(21, 'tiep nhan tp', '2-8', 'ji', '2015-11-01 03:16:14am'),
+(22, 'chu tich', '2-8', 'ok', '2015-11-01 03:16:27am'),
+(23, 'tiep nhan tp', '2-8', 'hey', '2015-11-01 03:16:38am'),
+(24, 'chu tich', '2-8', 'what', '2015-11-01 03:16:44am'),
+(25, 'phong ban tp', '2-3', 'dude', '2015-11-02 08:09:18pm'),
+(26, 'tiep nhan tp', '2-3', 'what up?', '2015-11-02 08:09:36pm'),
+(27, 'phong ban tp', '2-3', 'fire', '2015-11-02 08:09:47pm'),
+(28, 'chu tich', '3-8', 'hú', '2015-11-02 08:18:33pm'),
+(29, 'phong ban tp', '2-3', 'ok', '2015-11-10 05:56:59am'),
+(30, 'phong ban tp', '2-3', 'hey', '2015-11-10 06:00:41am'),
+(31, 'phong ban tp', '2-3', 'bye', '2015-11-10 06:00:55am'),
+(32, 'phong ban tp', '3-10', 'hey', '2015-11-11 07:43:34pm'),
+(33, 'nhan va tra', '3-10', 'what up', '2015-11-11 07:44:44pm'),
+(34, 'phong ban tp', '3-10', 'nothing', '2015-11-11 07:51:46pm'),
+(35, 'nhan va tra', '3-10', 'good', '2015-11-11 07:52:02pm'),
+(36, 'tra ve', '4-8', 'hế lô', '2015-11-12 05:54:19am'),
+(37, 'phong ban tp', '3-10', 'boom', '2015-11-12 05:54:43am'),
+(38, 'chu tich', '4-8', 'what up?', '2015-11-12 05:55:20am'),
+(39, 'phong ban tp', '2-3', 'hey', '2015-11-14 12:05:26pm'),
+(40, 'phong ban tp', '2-3', 'dude', '2015-11-14 12:05:35pm'),
+(41, 'phong ban tp', '2-3', 'fire', '2015-11-14 12:06:56pm'),
+(42, 'phong ban tp', '2-3', 'boom', '2015-11-14 12:07:24pm'),
+(43, 'phong ban dd', '3-7', 'hey', '2015-11-15 08:12:04am'),
+(44, 'phong ban tp', '3-7', 'what  up?', '2015-11-15 08:12:13am'),
+(45, 'tra ve', '3-4', 'hey', '2015-11-15 08:12:31am'),
+(46, 'phong ban tp', '3-4', 'im here', '2015-11-15 08:13:05am');
 
 -- --------------------------------------------------------
 
@@ -455,19 +502,18 @@ INSERT INTO `message` (`id`, `name`, `vs`, `message`, `week`, `year`, `date`, `v
 -- Table structure for table `thanh_phan`
 --
 
-CREATE TABLE IF NOT EXISTS `thanh_phan` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `thanh_phan` (
+  `id` int(11) NOT NULL,
   `noi_dung` text NOT NULL,
-  `note` varchar(200) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=45 ;
+  `note` varchar(200) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `thanh_phan`
 --
 
 INSERT INTO `thanh_phan` (`id`, `noi_dung`, `note`) VALUES
-(1, '+Bản chính;__<br>\r\n+ Bản sao cần chứng thực.<br>\r\n', 'Tùy theo nhu cầu chứng thực của người dân (cơ quan thực hiện lưu 01 bản sao).'),
+(1, '+You are here, wasted me the whole afternoon :(\n+Bản chính;__<br>\n+ Bản sao cần chứng thực.<br>\n', 'Tùy theo nhu cầu chứng thực của người dân (cơ quan thực hiện lưu 01 bản sao).'),
 (2, 'Chưa cập nhật.', ''),
 (3, '+ Kết quả giám định sức khỏe của người viết di chúc.<br>\n+ Di chúc.<br>\n+ Phiếu yêu cầu chứng thực (theo mẫu).<br>\n+ Xuất trình giấy tờ tuỳ thân (hộ khẩu, chứng minh nhân dân) và giấy tờ cần thiết để chứng minh quyền sở hữu, quyền sử dụng đối với tài sản.<br>', '01 bộ.'),
 (4, '+ Phiếu yêu cầu chứng thực.<br>\n+ Văn bản từ chối nhận tài sản thừa kế (mẫu số 60/VBTC).<br>', '01 bộ.'),
@@ -482,7 +528,7 @@ INSERT INTO `thanh_phan` (`id`, `noi_dung`, `note`) VALUES
 (13, '+ Tờ khai (theo mẫu).<br>\n+ Xuất trình bản sao giấy tờ hộ tịch đã cấp hợp lệ trước đây (nếu có); trong trường hợp không có bản sao giấy tờ hộ tịch, thì đương sự phải tự cam đoan về việc đã đăng ký, nhưng sổ hộ tịch không còn lưu được và chịu trách nhiệm về nội dung cam đoan.<br>\n+ Bản sao giấy chứng minh nhân dân hoặc Hộ chiếu của người đi đăng ký hộ tịch để xác định về cá nhân người đó.<br>\n+ Bản sao Sổ hộ khẩu, Sổ đăng ký tạm trú (đối với công dân Việt Nam ở trong nước); Thẻ thường trú, Thẻ tạm trú hoặc Chứng nhận tạm trú (đối với người nước ngoài cư trú tại Việt Nam) để làm căn cứ xác định thẩm quyền đăng ký.<br>\n+ Bản sao các giấy tờ nêu trên, kèm bản chính để đối chiếu hoặc bản sao có chứng thực.<br>', '01 bộ.'),
 (14, '+ Tờ khai đăng ký kết hôn (mẫu TP/HT-2013-TKĐKKH).<br>\n+ Bản sao giấy chứng minh nhân dân hoặc Hộ chiếu của người đi đăng ký hộ tịch để xác định về cá nhân người đó.<br>\n+ Bản sao Sổ hộ khẩu, Sổ đăng ký tạm trú (đối với công dân Việt Nam ở trong nước); Thẻ thường trú, Thẻ tạm trú hoặc Chứng nhận tạm trú (đối với người nước ngoài cư trú tại Việt Nam) để làm căn cứ xác định thẩm quyền đăng ký.<br>\nBản sao các giấy tờ nêu trên, kèm bản chính để đối chiếu hoặc bản sao có chứng thực.<br>', '01 bộ.'),
 (15, '+ Tờ khai (theo mẫu).<br>\r\n+ Xuất trình bản sao giấy tờ hộ tịch đã cấp hợp lệ trước đây (nếu có); trong trường hợp không có bản sao giấy tờ hộ tịch, thì đương sự phải tự cam đoan về việc đã đăng ký, nhưng sổ hộ tịch không còn lưu được và chịu trách nhiệm về nội dung cam đoan. Đối với việc đăng ký lại việc kết hôn, thì bản cam đoan phải có xác nhận của 02 người làm chứng biết rõ về việc đã đăng ký và có xác nhận của Ủy ban nhân dân cấp xã về chữ ký của hai người làm chứng.<br>\r\n+ Bản sao giấy chứng minh nhân dân hoặc Hộ chiếu của người đi đăng ký hộ tịch để xác định về cá nhân người đó.<br>\r\n+ Bản sao Sổ hộ khẩu, Sổ đăng ký tạm trú (đối với công dân Việt Nam ở trong nước); Thẻ thường trú, Thẻ tạm trú hoặc Chứng nhận tạm trú (đối với người nước ngoài cư trú tại Việt Nam) để làm căn cứ xác định thẩm quyền đăng ký.<br>\r\nBản sao các giấy tờ nêu trên, kèm bản chính để đối chiếu hoặc bản sao có chứng thực.', '01'),
-(16, '+ Tờ khai đăng ký kết hôn (mẫu TP/HT-2010-KH.1).<br>\r\n+ Giấy xác nhận tình trạng hôn nhân hoặc Tờ khai đăng ký kết hôn có xác nhận tình trạng hôn nhân đối với công dân Việt Nam; giấy tờ để chứng minh về tình trạng hôn nhân của công dân nước láng giềng do cơ quan có thẩm quyền của nước đó cấp chưa quá 06 tháng, tính đến ngày nhận hồ sơ, xác nhận hiện tại người đó là người không có vợ hoặc không có chồng.<br>\r\n+ Đối với công dân Việt Nam đã ly hôn tại cơ quan có thẩm quyền của nước ngoài hoặc người nước ngoài đã ly hôn với công dân Việt Nam tại cơ quan có thẩm quyền của nước ngoài thì phải nộp Giấy xác nhận về việc đã ghi vào sổ hộ tịch việc ly hôn đã tiến hành ở nước ngoài theo quy định của pháp luật Việt Nam.<br>\r\n+ Xuất trình: Giấy chứng minh nhân dân biên giới đối với công dân Việt Nam; trường hợp không có Giấy chứng minh nhân dân biên giới thì xuất trình giấy tờ chứng minh việc thường trú ở khu vực biên giới kèm theo giấy tờ tùy thân khác để kiểm tra.<br>\r\n+ Xuất trình: Giấy tờ tùy thân hoặc giấy tờ khác đối với công dân nước láng giềng do cơ quan có thẩm quyền của nước đó cấp để chứng minh việc người đó thường trú ở khu vực biên giới với Việt Nam.<br>', '01 bộ.'),
+(16, '+ Tờ khai đăng ký kết hôn (mẫu TP/HT-2010-KH.1).<br>\n+ Giấy xác nhận tình trạng hôn nhân hoặc Tờ khai đăng ký kết hôn có xác nhận tình trạng hôn nhân đối với công dân Việt Nam; giấy tờ để chứng minh về tình trạng hôn nhân của công dân nước láng giềng do cơ quan có thẩm quyền của nước đó cấp chưa quá 06 tháng, tính đến ngày nhận hồ sơ, xác nhận hiện tại người đó là người không có vợ hoặc không có chồng.<br>\n+ Đối với công dân Việt Nam đã ly hôn tại cơ quan có thẩm quyền của nước ngoài hoặc người nước ngoài đã ly hôn với công dân Việt Nam tại cơ quan có thẩm quyền của nước ngoài thì phải nộp Giấy xác nhận về việc đã ghi vào sổ hộ tịch việc ly hôn đã tiến hành ở nước ngoài theo quy định của pháp luật Việt Nam.<br>\n+ Giấy chứng minh nhân dân biên giới đối với công dân Việt Nam; trường hợp không có Giấy chứng minh nhân dân biên giới thì xuất trình giấy tờ chứng minh việc thường trú ở khu vực biên giới kèm theo giấy tờ tùy thân khác để kiểm tra.<br>\n+ Giấy tờ tùy thân hoặc giấy tờ khác đối với công dân nước láng giềng do cơ quan có thẩm quyền của nước đó cấp để chứng minh việc người đó thường trú ở khu vực biên giới với Việt Nam.<br>', '01 bộ.'),
 (17, '+ Tờ khai (theo mẫu).<br>\n+ Bản sao giấy chứng minh nhân dân hoặc Hộ chiếu của người đi đăng ký hộ tịch để xác định về cá nhân người đó.<br>\n+ Bản sao Sổ hộ khẩu, Sổ đăng ký tạm trú (đối với công dân Việt Nam ở trong nước); Thẻ thường trú, Thẻ tạm trú hoặc Chứng nhận tạm trú (đối với người nước ngoài cư trú tại Việt Nam) để làm căn cứ xác định thẩm quyền đăng ký.<br>\n+ Bản sao các giấy tờ nêu trên, kèm bản chính để đối chiếu hoặc bản sao có chứng thực.<br>', '01 bộ.'),
 (18, '+ Giấy cử giám hộ.<br>\n+ Tờ khai (theo mẫu quy định).<br>\n+ Bản sao giấy chứng minh nhân dân hoặc Hộ chiếu của người đi đăng ký hộ tịch để xác định về cá nhân người đó.<br>\n+ Bản sao Sổ hộ khẩu, Sổ đăng ký tạm trú (đối với công dân Việt Nam ở trong nước); Thẻ thường trú, Thẻ tạm trú hoặc Chứng nhận tạm trú (đối với người nước ngoài cư trú tại Việt Nam) để làm căn cứ xác định thẩm quyền đăng ký.<br>\n+ Bản sao các giấy tờ nêu trên, kèm bản chính để đối chiếu hoặc bản sao có chứng thực.<br>', '01 bộ.'),
 (19, '+ Tờ khai (theo mẫu).<br>\n+ Danh mục tài sản riêng được lập khi đăng ký giám hộ và danh mục tài sản hiện tại của người được giám hộ (nếu có).<br>\n+ Quyết định công nhận việc giám hộ đã cấp trước đây.<br>\n+ Xuất trình các giấy tờ chứng minh đủ điều kiện chấm dứt, thay đổi việc giám hộ.<br>\n+ Bản sao giấy chứng minh nhân dân hoặc Hộ chiếu của người đi đăng ký hộ tịch để xác định về cá nhân người đó.<br>\n+ Bản sao Sổ hộ khẩu, Sổ đăng ký tạm trú (đối với công dân Việt Nam ở trong nước); Thẻ thường trú, Thẻ tạm trú hoặc Chứng nhận tạm trú (đối với người nước ngoài cư trú tại Việt Nam) để làm căn cứ xác định thẩm quyền đăng ký.<br>\n+ Bản sao các giấy tờ nêu trên, kèm bản chính để đối chiếu hoặc bản sao có chứng thực.<br>', '01 bộ.'),
@@ -499,8 +545,8 @@ INSERT INTO `thanh_phan` (`id`, `noi_dung`, `note`) VALUES
 (30, '+ Tờ khai cấp Giấy xác nhận tình trạng hôn nhân (TP/HT-2013-TKXNHN).<br>\n+ Bản sao một trong các giấy tờ để chứng minh về nhân thân như Giấy chứng minh nhân dân, Hộ chiếu hoặc giấy tờ hợp lệ thay thế.<br>\n+ Bản sao sổ hộ khẩu hoặc sổ tạm trú của người yêu cầu.<br>\n+ Trường hợp công dân Việt Nam đã ly hôn tại cơ quan có thẩm quyền của nước ngoài thì phải nộp Giấy xác nhận về việc ghi vào sổ hộ tịch việc ly hôn đã tiến hành ở nước ngoài theo quy định của pháp luật Việt Nam.<br>', '01 bộ.'),
 (31, '+ Tờ khai nhận cha, mẹ, con (theo mẫu quy định).<br>\n+ Căn cứ chứng minh quan hệ cha con, mẹ con (nếu có).<br>', '01 bộ.'),
 (32, '+ Bản chính.<br>\n+ Bản sao cần chứng thực.<br>', 'Tùy theo nhu cầu chứng thực của người dân (cơ quan thực hiện lưu 01 bản sao).'),
-(33, '+ Đơn đề nghị cấp lại, cấp đổi giấy chứng nhận quyền sử dụng đất, quyền sở hữu nhà ở và tài sản khác gắn liền với đất( mẫu số 10/ĐK).<br>\r\n+ Bản gốc giấy chứng nhận đã cấp.<br>\r\n+ Trích lục( trích đo) bản đồ địa chính<br>\r\n+ Biên bản thẩm tra ranh( nếu tăng giảm diện tích)', ''),
-(34, '+ Đơn đề nghị cấp lại, cấp đổi giấy chứng nhận quyền sử dụng đất, quyền sở hữu nhà ở và tài sản khác gắn liền với đất( mẫu số 10/ĐK).<br>\r\n+ Bản gốc giấy chứng nhận đã cấp.<br>\r\n+ Trích lục bản đồ địa chính.\r\n\r\n', ''),
+(33, '+ Đơn đề nghị cấp lại, cấp đổi giấy chứng nhận quyền sử dụng đất, quyền sở hữu nhà ở và tài sản khác gắn liền với đất( mẫu số 10/ĐK).<br>\n+ Bản gốc giấy chứng nhận đã cấp.<br>\n+ Trích lục( trích đo) bản đồ địa chính<br>\n+ Biên bản thẩm tra ranh( nếu tăng giảm diện tích)', ''),
+(34, '+ Đơn đề nghị cấp lại, cấp đổi giấy chứng nhận quyền sử dụng đất, quyền sở hữu nhà ở và tài sản khác gắn liền với đất( mẫu số 10/ĐK).<br>\n+ Bản gốc giấy chứng nhận đã cấp.<br>\n+ Trích lục bản đồ địa chính.\n\n', ''),
 (35, '+ Đơn cớ mất có xác nhận của công an.<br>\n+ Giấy xác nhận đăng báo, đài truyền thanh.<br> \n+ Đơn đề nghị cấp lại, cấp đổi giấy chứng nhận quyền sử dụng đất, quyền sở hữu nhà ở và tài sản khác gắn liền với đất( mẫu số 10/ĐK).<br>\n+ Bản sao giấy chứng nhận đã cấp.<br>\n+ Thông báo niêm yết mất giấy của UBND trong thời gian 15 ngày.<br>\n+ Trích lục bản đồ địa chính.\n<br>', ''),
 (36, '+ Đơn điều chỉnh.<br>\n+ Đơn đăng ký biến động đất đai, tài sản gắn liền với đất(Mẫu số 09/ĐK).<br>\n', ''),
 (37, '+ Đơn điều chỉnh.<br>\r\n+ Đơn đăng ký biến động đất đai, tài sản gắn liền với đất(Mẫu số 09/ĐK).<br>\r\n+ Biên bản sai sót.\r\n', ''),
@@ -518,11 +564,10 @@ INSERT INTO `thanh_phan` (`id`, `noi_dung`, `note`) VALUES
 -- Table structure for table `thoi_gian`
 --
 
-CREATE TABLE IF NOT EXISTS `thoi_gian` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `noi_dung` text NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=9 ;
+CREATE TABLE `thoi_gian` (
+  `id` int(11) NOT NULL,
+  `noi_dung` text NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `thoi_gian`
@@ -544,11 +589,10 @@ INSERT INTO `thoi_gian` (`id`, `noi_dung`) VALUES
 -- Table structure for table `trinh_tu`
 --
 
-CREATE TABLE IF NOT EXISTS `trinh_tu` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `noi_dung` text NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=19 ;
+CREATE TABLE `trinh_tu` (
+  `id` int(11) NOT NULL,
+  `noi_dung` text NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `trinh_tu`
@@ -580,8 +624,8 @@ INSERT INTO `trinh_tu` (`id`, `noi_dung`) VALUES
 -- Table structure for table `user`
 --
 
-CREATE TABLE IF NOT EXISTS `user` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `user` (
+  `id` int(11) NOT NULL,
   `online` int(11) NOT NULL,
   `ma_can_bo` text NOT NULL,
   `hoten` varchar(200) NOT NULL,
@@ -592,9 +636,8 @@ CREATE TABLE IF NOT EXISTS `user` (
   `level` int(11) NOT NULL,
   `Sdt` text NOT NULL,
   `cmnd` text NOT NULL,
-  `dia_chi` text NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=11 ;
+  `dia_chi` text NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `user`
@@ -602,7 +645,7 @@ CREATE TABLE IF NOT EXISTS `user` (
 
 INSERT INTO `user` (`id`, `online`, `ma_can_bo`, `hoten`, `ngay_sinh`, `name`, `avatar`, `pass`, `level`, `Sdt`, `cmnd`, `dia_chi`) VALUES
 (1, 0, '01', 'Lưu Thanh Hải', '01/06/1991', 'hai', 'icon-profile.png', 'e727d1464ae12436e899a726da5b2f11d8381b26', 4, '01224542393', '321456322', 'Ktx Bách Khoa'),
-(2, 1, 'tiepnhan', 'Nguyễn Quốc Hải', '03/02/1992', 'tiep nhan', 'Bioman-Avatar-3-Blue-icon.png', 'e727d1464ae12436e899a726da5b2f11d8381b26', 11, '01224542393', '451456322', 'Ktx Bách Khoa'),
+(2, 1, 'tiepnhan', 'Nguyễn Quốc Hải', '03/02/1992', 'tiep nhan', 'Bioman-Avatar-3-Blue-icon.png', 'e727d1464ae12436e899a726da5b2f11d8381b26', 11, '01222212456', '451456322', 'Ktx Bách Khoa'),
 (3, 0, 'bantp', 'Trương Chí Vinh', '01/06/1991', 'phong ban tp', 'comics-mask-icon.png', 'e727d1464ae12436e899a726da5b2f11d8381b26', 21, '01224542393', '681456322', 'Ktx Bách Khoa'),
 (4, 1, 'trave', 'Ngô Tsui Tsui', '01/06/1991', 'tra ve', 'mike1.png', 'e727d1464ae12436e899a726da5b2f11d8381b26', 13, '01224542393', '121456322', 'Ktx Bách Khoa'),
 (7, 0, 'bandd', 'Liêu Say Dậu', '01/06/1991', 'phong ban dd', 'Halloween-face-avatar-PNG-Icon201308061.jpg', 'e727d1464ae12436e899a726da5b2f11d8381b26', 22, '01224542393', '321456345', 'Ktx Bách Khoa'),
@@ -616,11 +659,10 @@ INSERT INTO `user` (`id`, `online`, `ma_can_bo`, `hoten`, `ngay_sinh`, `name`, `
 -- Table structure for table `yeu_cau`
 --
 
-CREATE TABLE IF NOT EXISTS `yeu_cau` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `noi_dung` text NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=27 ;
+CREATE TABLE `yeu_cau` (
+  `id` int(11) NOT NULL,
+  `noi_dung` text NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `yeu_cau`
@@ -654,6 +696,212 @@ INSERT INTO `yeu_cau` (`id`, `noi_dung`) VALUES
 (25, '+ Giấy tờ do cơ quan có thẩm quyền của nước láng giềng lập, cấp hoặc xác nhận để sử dụng giải quyết việc nhận cha, mẹ, con có yếu tố nước ngoài ở khu vực biên giới được miễn hợp pháp hóa lãnh sự.<br>\r\n+ Giấy tờ do cơ quan có thẩm quyền của nước láng giềng lập, cấp hoặc xác nhận để sử dụng giải quyết việc nhận cha, mẹ, con có yếu tố nước ngoài ở khu vực biên giới chỉ cần dịch ra tiếng Việt, có cam kết của người dịch về việc dịch đúng nội dung, không cần chứng thực chữ ký người dịch.'),
 (26, 'Người thực hiện chứng thực bản sao từ bản chính không được thực hiện chứng thực trong các trường hợp sau đây:<br>\r\n1. Bản chính được cấp sai thẩm quyền hoặc giả mạo.<br>\r\n2. Bản chính đã bị tẩy xoá, sửa chữa, thêm, bớt hoặc đã bị hư­ hỏng, cũ nát không thể xác định rõ nội dung.<br>\r\n 3. Bản chính không được phép phổ biến trên các phương tiện thông tin đại chúng theo quy định của pháp luật.<br>\r\n4. Đơn, th­ư và các giấy tờ do cá nhân tự lập không có chứng nhận, chứng thực hoặc xác nhận của cơ quan, tổ chức có thẩm quyền.<br>\r\n5. Các giấy tờ, văn bản khác mà pháp luật quy định không được sao. ');
 
+--
+-- Indexes for dumped tables
+--
+
+--
+-- Indexes for table `cach_thuc`
+--
+ALTER TABLE `cach_thuc`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `calendar`
+--
+ALTER TABLE `calendar`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `can_cu`
+--
+ALTER TABLE `can_cu`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `co_quan`
+--
+ALTER TABLE `co_quan`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `doi_tuong`
+--
+ALTER TABLE `doi_tuong`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `gcm_user`
+--
+ALTER TABLE `gcm_user`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `giai_quyet`
+--
+ALTER TABLE `giai_quyet`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `ho_so`
+--
+ALTER TABLE `ho_so`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `ket_qua`
+--
+ALTER TABLE `ket_qua`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `le_phi`
+--
+ALTER TABLE `le_phi`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `map`
+--
+ALTER TABLE `map`
+  ADD PRIMARY KEY (`node_id`);
+
+--
+-- Indexes for table `mau_don`
+--
+ALTER TABLE `mau_don`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `message`
+--
+ALTER TABLE `message`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `thanh_phan`
+--
+ALTER TABLE `thanh_phan`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `thoi_gian`
+--
+ALTER TABLE `thoi_gian`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `trinh_tu`
+--
+ALTER TABLE `trinh_tu`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `user`
+--
+ALTER TABLE `user`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `yeu_cau`
+--
+ALTER TABLE `yeu_cau`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- AUTO_INCREMENT for dumped tables
+--
+
+--
+-- AUTO_INCREMENT for table `cach_thuc`
+--
+ALTER TABLE `cach_thuc`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+--
+-- AUTO_INCREMENT for table `calendar`
+--
+ALTER TABLE `calendar`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+--
+-- AUTO_INCREMENT for table `can_cu`
+--
+ALTER TABLE `can_cu`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=32;
+--
+-- AUTO_INCREMENT for table `co_quan`
+--
+ALTER TABLE `co_quan`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+--
+-- AUTO_INCREMENT for table `doi_tuong`
+--
+ALTER TABLE `doi_tuong`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+--
+-- AUTO_INCREMENT for table `gcm_user`
+--
+ALTER TABLE `gcm_user`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+--
+-- AUTO_INCREMENT for table `giai_quyet`
+--
+ALTER TABLE `giai_quyet`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
+--
+-- AUTO_INCREMENT for table `ho_so`
+--
+ALTER TABLE `ho_so`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+--
+-- AUTO_INCREMENT for table `ket_qua`
+--
+ALTER TABLE `ket_qua`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
+--
+-- AUTO_INCREMENT for table `le_phi`
+--
+ALTER TABLE `le_phi`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
+--
+-- AUTO_INCREMENT for table `map`
+--
+ALTER TABLE `map`
+  MODIFY `node_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=45;
+--
+-- AUTO_INCREMENT for table `mau_don`
+--
+ALTER TABLE `mau_don`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
+--
+-- AUTO_INCREMENT for table `message`
+--
+ALTER TABLE `message`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=47;
+--
+-- AUTO_INCREMENT for table `thanh_phan`
+--
+ALTER TABLE `thanh_phan`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=45;
+--
+-- AUTO_INCREMENT for table `thoi_gian`
+--
+ALTER TABLE `thoi_gian`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+--
+-- AUTO_INCREMENT for table `trinh_tu`
+--
+ALTER TABLE `trinh_tu`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
+--
+-- AUTO_INCREMENT for table `user`
+--
+ALTER TABLE `user`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+--
+-- AUTO_INCREMENT for table `yeu_cau`
+--
+ALTER TABLE `yeu_cau`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

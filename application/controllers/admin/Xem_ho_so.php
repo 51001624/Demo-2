@@ -64,6 +64,7 @@ class Xem_ho_so extends CI_Controller {
 		,'node_map'=>$data
 		,'ngay_nhan'=>$ngay_nhan
 		,'ngay_tra' =>$ngay_tra
+		,'id', $id
 		));
 		$this->load->view('templates/footer');
 

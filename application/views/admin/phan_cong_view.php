@@ -10,10 +10,14 @@
 </ol>
 
 
-<div id="eventContent"  style="display:none;">
-    Ngày kết thúc: <span id="endTime"></span><br>
-    <p id="eventInfo"></p>
-</div>
+            <div id="eventContent"  style="display:none;">
+                <i style="font-weight: bold; font-style: italic;">Mô tả công việc:</i> <span id="description"></span><br>
+                <i style="font-weight: bold; font-style: italic;">Ngày bắt đầu:</i> <span id="startTime"></span><br>
+                <i style="font-weight: bold; font-style: italic;">Ngày kết thúc:</i> <span id="endTime"></span><br>
+                <i style="font-weight: bold; font-style: italic;">Tình trạng công việc:</i><span id="status"></span><br>
+                <p id="eventInfo"></p>
+            </div>
+
 
 
 <div id='calendar'></div>
@@ -73,9 +77,7 @@
     var link2 = mylink+"admin/phan_cong/getCongViec";
     var linkDelete = mylink+"admin/phan_cong/deleteCongViec";
     var linkUpdate = mylink+"admin/phan_cong/updateCongViec";
-
-
-
+    var link3 = mylink+"admin/phan_cong/getIndividual";
 
 
     $.ajax({
@@ -99,13 +101,40 @@
             },
 
          eventRender: function (event, element) {
+
+             var mystuff="";
+             var myStatus;
              element.attr('href', 'javascript:void(0);');
              element.click(function () {
-                 $("#endTime").html(moment(event.start).format('DD-MM-YYYY'));
-                 $("#eventContent").dialog({modal: true, title: event.title, width: 350});
+
+                 var theID = event.id;
+                 $.post(
+                     link3,
+                     {
+                         id:theID
+                     },
+                     function (response){
+                        mystuff = JSON.parse(response);
+                         $('#startTime').html(moment(mystuff.startTime).format('DD-MM-YYYY'));
+                         $("#endTime").html(moment(mystuff.endTime).format('DD-MM-YYYY'));
+                          if(mystuff.phan_tram == 100 ){
+                              myStatus = "Đã hoàn thành, chưa báo hoàn thành cho người giao việc";
+                          }else{
+                              myStatus = "Đã hoàn thành được "+mystuff.phan_tram+"%";
+                          }
+                         $('#description').html(event.title);
+                         $("#status").html(myStatus);
+                         $("#eventContent").dialog({modal: true, title: "Chi tiết công việc", width: 450,
+                             open: function(ui) {
+                                 $('.ui-dialog-titlebar-close').html('X');
+                             }});
+                     }
+                 );
+
              });
          },
          eventTextColor: 'black',
+         eventTextSize:'12',
 
          timeFormat: 'h:ma',      // the output i.e. "10:00pm"
          monthNames: ["Tháng một","Tháng hai","Tháng ba","Tháng tư","Tháng năm","Tháng sáu","Tháng bảy", "Tháng tám", "Tháng chín", "Tháng mười", "Tháng mười một", "Tháng mười hai" ],
@@ -126,7 +155,6 @@
 
          },
 
-
          selectable: true,
          defaultDate: '2015-12-01',
          editable: true,
@@ -136,7 +164,8 @@
 
         });
 
-
     });
+
+
 
 </script>

@@ -71,7 +71,7 @@
                 <div class="form-group">
                     <label class="col-xs-2 col-sm-2 col-md-2 col-lg-2 control-label">Số ngày giải quyết </label>
                     <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
-                        <input class="form-control" id="songay" onkeyup="doMacBookPro();" type="lable" name="songay"value = "<?php echo $sngq; ?>" >
+                        <input class="form-control" id="songay" onBlur="doMacBookPro();" type="lable" name="songay"value = "<?php echo $sngq; ?>" >
 
                     </div>
                     <div class="error"><span class="error">* <?php echo form_error('songay'); ?></span></div>

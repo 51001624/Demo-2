@@ -84,5 +84,16 @@
 		else 
 			echo'<h4><ins>Ghi chú:</ins></h4><p>Không</p>';?>
 		</div>
+
+		<div class="col-xs-12 col-md-12">
+			<?php
+			if ((isset($_SESSION['name_user']))&&($details->status==8)&&
+					(($_SESSION['level']==11)||($_SESSION['level']==12)))
+				echo '<div class="setTop"><button type="button" class="Ying col-xs-12 btn btn-primary btn-xlarge"
+				onclick=location.href="'.base_url('admin/Admin_tiep_nhan/nhan_lai/'.$details->id.'').'">Nhận lại hồ sơ lỗi
+				</button></div>';
+			?>
+		</div>
+
 	</div>
 </div><!-- /.col-lg-12 -->

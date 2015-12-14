@@ -255,10 +255,6 @@
     <input type="text" id="ying_ho_so_da_nhan" name = "dying" style="visibility: hidden" >
     <input type="submit"  onclick="compileInputs();" class="btn btn-success btn-lg btn-block" id = 'submit'name="submit" value="Nhập hồ sơ">
     </div>
-
-
-
-
   </div>
 
 </div>

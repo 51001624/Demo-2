@@ -39,7 +39,7 @@
 						<td>'.$row->cmnd.'</td>';
 				if ($row->status==1)
 					echo '
-						<td><button type="button" class="btn btn-success"onclick=location.href="'.base_url('admin/admin_phong_ban/edit/'.$row->id.'').'">Nhận xử lý</button></td>
+						<td><button type="button" class="btn btn-success"onclick=location.href="'.base_url('admin/admin_phong_ban/edit/'.$row->id.'/'.$row->cmnd.'').'">Nhận xử lý</button></td>
 					</tr>';
 				if ($row->status==2){
 					echo '
@@ -56,7 +56,7 @@
 					<h4 class="modal-title">Nhập lỗi </h4>
 					</div>
 					<div class="modal-body">';
-					echo form_open(''.base_url('admin/admin_phong_ban/notifyError/'.$row->id.'').''); 
+					echo form_open(''.base_url('admin/admin_phong_ban/notifyError/'.$row->id.'/'.$row->cmnd.'').''); 
 					$qqq = $this->db->get_where('ho_so', array('id' => $row->id))->row(); 
 					      
 					$da_thu = str_replace('<b>','',$qqq->tt_giay_to_da_thu);
@@ -100,7 +100,7 @@
 					echo'
 						</div>
 					<div class="modal-footer">
-					<button class="btn btn-danger sent_noti_tv"onclick=location.href="'.base_url('admin/admin_phong_ban/edit_stt/'.$row->id.'').'">Xác nhận</button>';
+					<button class="btn btn-danger sent_noti_tv"onclick=location.href="'.base_url('admin/admin_phong_ban/edit_stt/'.$row->id.'/'.$row->cmnd.'').'">Xác nhận</button>';
 					echo'
                     <button class="btn btn-default" data-dismiss="modal">Đóng</button>
                 	</div>
@@ -132,7 +132,17 @@
 	}
 
 
+	$(document).on("click", "#lovely", function(e) {
 
+		bootbox.prompt("Nhập lỗi:",function(res){
+			if(res==null){
+				alert("Nothing");
+			}else{
+				bootbox.alert("Hi: "+res);
+			}
+		})
+
+	});
 
 
 </script>

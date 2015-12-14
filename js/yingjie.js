@@ -348,7 +348,6 @@ function forIndividualCase(a){
 
 //This function is used for checkbox when checked or unckeched
 function display(a) {
-    alert("hello");
     var textFiledString = "myNumber"+a;
     var myCheckbox = document.getElementById("chk" + a);
     var myTextField = document.getElementById(textFiledString);

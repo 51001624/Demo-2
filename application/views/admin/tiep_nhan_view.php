@@ -41,6 +41,7 @@
                 echo '<input type="hidden" id="num_count1" value="'.$num_count1.'" />';
                 echo '<input type="hidden" id="num_count2" value="'.$num_count2.'" />';
                 foreach ($query->result() as $row){
+
                 echo '<tr>
               <td><a href="'.base_url().'admin/xem_ho_so/details/'.$row->id.'">
                 <h5 class="truncate">'.$row->mshs.' </h5></a></td>
@@ -51,14 +52,14 @@
                   <button type="button" class="btn btn-warning"
                     onclick=location.href="'.base_url().'admin/admin_tiep_nhan/edit/'.$row->id.'">Chỉnh sửa</button>&nbsp;
                     <button class="btn btn-danger sent_noti_tp"
-                  onclick=location.href="'.base_url().'admin/admin_tiep_nhan/edit_stt/'.$row->id.'">Chuyển phòng ban</button>
+                  onclick=location.href="'.base_url().'admin/admin_tiep_nhan/edit_stt/'.$row->id.'/'.$row->cmnd.'">Chuyển phòng ban</button>
                   </td></tr>';
                 if(($row->status==0)&&($row->type==1))
                 echo' <td>
                   <button type="button" class="btn btn-warning"
                     onclick=location.href="'.base_url().'admin/admin_tiep_nhan/edit/'.$row->id.'">Chỉnh sửa</button>&nbsp;
                     <button class="btn btn-danger sent_noti_dd"
-                  onclick=location.href="'.base_url().'admin/admin_tiep_nhan/edit_stt/'.$row->id.'">Chuyển phòng ban</button>
+                  onclick=location.href="'.base_url().'admin/admin_tiep_nhan/edit_stt/'.$row->id.'/'.$row->cmnd.'">Chuyển phòng ban</button>
                   </td></tr>';
                 if($row->status==1)
                 echo '

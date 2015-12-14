@@ -46,6 +46,7 @@ class Phan_cong extends CI_Controller
             $array['title'] = $row['title'];
             $array['start'] = $row['enddate'];
             $array['end'] = $row['enddate'];
+            $array['id'] = $row['id'];
             array_push($events,$array);
 
         }
@@ -79,29 +80,20 @@ class Phan_cong extends CI_Controller
         $array['id']=$id;
         array_push($events,$array);
 
-
         echo json_encode($events);
 
-
-        //echo "sussess";
     }
 
-    public function addCongViec(){
-
-
-
-        /*$data1 = array('ma_can_bo'=>$_SESSION['ma_can_bo']
-        ,'title'=>$_POST['myTitle']
-        ,'startdate'=>$_POST['startDate']
-        ,'enddate'=>$_POST['endDate']
-        ,'id'=>$_POST['myID']
-        ,'allDay'=>$_POST['allDay']
-        );
-
-        $this->db->insert('calendar',$data1);*/
-        echo "sucess";
-        exit();
-
-
+    public function getIndividual(){
+        $id = $_POST['id'];
+        $this->db->where('id',$id);
+        $q = $this->db->get('calendar')->row();
+        $myarray['startTime'] = $q->startdate;
+        $myarray['endTime'] = $q->enddate;
+        $myarray['phan_tram'] = $q->phan_tram;
+        echo json_encode($myarray);
     }
+
+
+
 }

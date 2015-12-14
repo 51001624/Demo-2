@@ -18,7 +18,6 @@
     <link href="<?php echo base_url('css/font-awesome.min.css'); ?>" rel="stylesheet" type="text/css"><!-- Custom Fonts -->
     <link href="<?php echo base_url('css/amaran.min.css'); ?>" rel="stylesheet"><!-- Amaran -->
     <link href="<?php echo base_url('css/dataTables.bootstrap.min.css'); ?>" rel="stylesheet"><!-- dataTables -->
-    <link href="<?php echo base_url('css/fullcalendar.css'); ?>" rel="stylesheet"><!-- dataTables -->
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -31,10 +30,10 @@
     <link href="<?php echo base_url();?>css/jquery-ui.min.css" rel="stylesheet">
     <script src="<?php echo base_url(); ?>js/jquery.js"></script>
     <link href="<?php echo base_url('css/bootstrap-select.min.css'); ?>" rel="stylesheet" type="text/css">
-
+    <link href="<?php echo base_url('css/fullcalendar.css'); ?>" rel="stylesheet" type="text/css">
     
     <?php date_default_timezone_set("Asia/Ho_Chi_Minh"); 
-
+    echo '<input type="hidden" id="base_url" value="'.base_url().'" />';
    
         if(isset($_SESSION['name_user'])){
             echo '<input type="hidden" id="name_user" value="'.$_SESSION['name_user'].'" />';

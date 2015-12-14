@@ -38,18 +38,55 @@ class Admin_tiep_nhan extends CI_Controller {
 
 		$this->load->view('templates/footer');
 	}
-	public function edit_stt($id=3){
+	public function edit_stt($id=3,$cmnd=0){
+
 		$this->load->model('Ho_so');
-		/*$this->load->library('table');*/
+		/* Kiet */
+		$this->db->where('id', $id);
+		$q = $this->db->get('ho_so')->result();
+		$myString = $q[0]->lich_su_ho_so."/".$q[0]->mcb;
+
+
+		/*   End   */
+
 		$this->db->where('id', $id);
 		$this->db->update('ho_so',  array(
 			'status' => 1,
+			'lich_su_ho_so'=>$myString
 		));
+		$this->load->model('Gcm_model');
+  		$selUsers =$cmnd;
+		$greetMsg = 'Hồ sơ của bạn đang chờ xử lý';
+		$respJson =  '{"greetMsg":"'.$greetMsg.'"}';
+		$registation_ids = array();
+
+		$this->db->where('cmnd', $selUsers);
+ 		$query = $this->db->get('gcm_user'); 
+		$registation_ids = array();	
+		foreach ($query->result() as $row){
+		$registation_ids[0]=$row->gcmregid;
+		}			  
+
+	// JSON Msg to be transmitted to selected Users
+		$message = array("m" => $respJson);  
+		$pushsts = $this->Gcm_model->sendPushNotificationToGCM($registation_ids, $message); 
+
 		redirect('admin/admin_tiep_nhan');
 	}
 	public function  deleteRow($id=2){
 		$this->db->delete('ho_so',array('id'=>$id));
 		redirect('admin/admin_tiep_nhan');
+	}
+	public function nhan_lai($id=2){
+		$this->db->get('ho_so');
+		$this->db->where('id', $id);
+		$this->db->update('ho_so',  array(
+			'status' => 0,
+			'mcb'=>$_SESSION['ma_can_bo']
+			// cộng thêm cột num_error
+			
+		));
+		redirect(base_url('admin/Admin_tiep_nhan'));
 	}
 	public function edit($id=2){
 

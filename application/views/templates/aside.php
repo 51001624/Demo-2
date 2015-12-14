@@ -158,6 +158,8 @@
                   <i class="fa fa-tasks"></i>Giao công việc</a></li>';
             echo '<li><a href="'.base_url('admin/viec_da_giao').'">
                   <i class="fa fa-tasks"></i>Công việc đã giao<span class="badge right">'.$this->db->where('ma_can_bo_giao',$_SESSION['ma_can_bo'])->count_all_results('calendar').'</span>  </a></li>';
+            echo '<li><a href="'.base_url('admin/giai_quyet_ho_so').'">
+                  <i class="fa fa-tasks"></i>Tình hình giải quyết hồ sơ</a></li>';
             echo '<li><a href="'.base_url('admin/thong_ke').'">
                   <i class="fa fa-bar-chart-o fa-fw"></i> Thống kê </a></li>';
         }
