@@ -74,6 +74,7 @@ $(function () {
 // DataTable
 $(document).ready(function() {
     $('#table').DataTable( {
+        "dom": '<"row"<"marTop col-sm-2"f><"col-sm-10"p>>rt<"row"<"marTop col-sm-12"l>>',
         "decimal": false,
         "info": false,
         "infoEmpty": false,
