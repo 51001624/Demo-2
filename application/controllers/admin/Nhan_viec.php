@@ -44,7 +44,6 @@ class Nhan_viec extends CI_Controller
         $this->db->where('id',$id);
         $this->db->update('calendar',$data);
 
-        echo "success";
 
 
         //echo "sussess";

@@ -49,7 +49,7 @@
                         <span class="user-link user-subhead" >'.$my_phong_ban[$i].'</span>
                     </td>
                     <td class="text-center">';
-                   echo '<button value='.$data1[$i]->ma_can_bo.' class="giaoviec btn btn-info">Giao Việc</button>';
+                    echo '<button value='.$data1[$i]->ma_can_bo.' class="giaoviec btn btn-info">Giao Việc</button>';
 
                     echo '</td>
 
@@ -73,24 +73,37 @@
                 <h4 id="modalTitle" class="modal-title"></h4>
             </div><!--header-->
 
-                <div id="modalBody" class="modal-body">
-                    <form id="taskForm">
+            <div id="modalBody" class="modal-body">
+                <form id="taskForm">
                     <div class="containter">
                         <div class="row">
                             <div class="col-xs-3">
                                 <label>Tên công việc:</label>
                             </div>
                             <div class="col-xs-9">
-                                <input id = "Hello"type="text" autofocus name="task" class="form-control">
+                                <input id = "Hello" placeholder="Bắt buộc" type="text" name="task" autofocus name="task" class="form-control">
+
+                            <div class="errorTxt1 " style="margin: 15px;"></div>
                             </div>
                         </div>
 
-                        <div class="row " style="margin-top: 10px;">
+                        <div class="row">
+                            <div class="col-xs-3">
+                                <label>Mô tả công việc:</label>
+                            </div>
+                            <div class="col-xs-9">
+                                <textarea class="form-control" placeholder="Không bắt buộc" rows="3" id="mota"></textarea>
+                            </div>
+                        </div>
+
+
+                        <div class="row" style="margin-top: 10px;">
                             <div class="col-xs-3">
                                 <label>Bắt đầu </label>
                             </div>
                             <div class="col-xs-9">
                                 <input type="text" name = "start" value="<?php echo date("d/m/Y"); ?>" id="datetimepickerStart" class="form-control" readonly >
+                                <div style="margin: 15px;"></div>
                             </div>
                         </div>
 
@@ -100,23 +113,25 @@
                             </div>
                             <div class="col-xs-9">
                                 <input type="text" id="datetimepickerEnd" name="end" class="form-control" readonly>
+                                <div class="errorTxt2 " style="margin: 15px;"></div>
                             </div>
                         </div>
+
 
                         <div class="row " style="margin-top:10px; margin-right: 1px;">
                             <div class="col-xs-offset-9">
                                 <button class="btn btn-primary btn-block" id="submit"  type="submit" name="submit">Nhập</button>
                             </div>
-                          <div class="col-xs-offset-1"></div>
-                         </div>
+                            <div class="col-xs-offset-1"></div>
+                        </div>
 
                     </div>
-                    </form>
+                </form>
 
-                </div><!--End modal body -->
+            </div><!--End modal body -->
         </div>
     </div>
-    </div>
+</div>
 
 <input type="text"  id="base_html" value="<?php echo base_url();?>" style="visibility: hidden;">
 
@@ -142,19 +157,20 @@
 
 
             messages: {
-                task: "Tên công việc chưa nhập ",
-                end: "Ngày kết thúc chưa chọn !"
+                task: "Tên công việc chưa nhập",
+                end: "Ngày kết thúc chưa chọn"
 
             },
 
-            submitHandler: function (form) {
-                alert("Công việc đã được chyển đi !");
-                form.submit();
+            errorPlacement:function(error,elememt){
+              if(elememt.attr("name") == "task")
+              error.insertAfter(".errorTxt1");
+                else
+              error.insertAfter(".errorTxt2");
+            },
 
-                /*
-                Đặt vị trí lỗi
-                 http://stackoverflow.com/questions/26498899/jquery-validate-custom-error-message-location
-                 */
+            submitHandler: function (form) {
+
 
 
             }
@@ -169,35 +185,23 @@
         $('#datetimepickerEnd').datepicker();
         mscbNhan = $(this).attr("value");
 
-        });
+    });
     $('#closeButton').on("click",function(){
         if(typeSuccess == 1){
             window.location.href = link2;
         }
 
         if(typeFail == 1 ){
-            document.getElementById('Hello').value="";
-            document.getElementById('datetimepickerEnd').value="";
             $("#fullCalModal").modal();
         }
     });
 
     $("#submit").on("click",function() {
-
         var title = document.getElementById('Hello').value;
         var startFromSource = document.getElementById('datetimepickerStart').value;
         var endFromSource = document.getElementById('datetimepickerEnd').value;
-        if(title=="" || startFromSource==""||endFromSource==""){
-            $("#fullCalModal").modal('hide');
-            if(title==""){
-                $('#thongbao').html('Tên công việc chưa nhập').css('color','red');
-            }else if(endFromSource==""){
-                $('#thongbao').html('Ngày kết thúc chưa nhập').css('color','red');
-            }
-            $('#baoloi').modal();
-            typeFail = 1;
-        }else{
-
+        var mota = document.getElementById('mota').value;
+        if(endFromSource!=""){
             var start =startFromSource.substr(6,4)+"-"+startFromSource.substr(3,2)
                 +"-"+startFromSource.substr(0,2);
             var end =endFromSource.substr(6,4)+"-"+endFromSource.substr(3,2)
@@ -212,6 +216,7 @@
                         myTitle: title,
                         startDate: start,
                         endDate: end,
+                        mota:mota,
                         mcbNhan: mscbNhan,
                         status: status
 
@@ -230,20 +235,18 @@
 
             }else{
                 $("#fullCalModal").modal('hide');
-                $('#thongbao').html('Lỗi ngày kết thúc !').css('color','red');
+                $('#thongbao').html('Kiểm tra lại ngày kết thúc!').css('color','red');
                 $('#baoloi').modal();
                 typeFail = 1;
 
             }
-
         }
 
+
+
+
+
     });
-
-
-
-
-
 
 
 

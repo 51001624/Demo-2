@@ -107,8 +107,6 @@
 					</tr>
 				</thead>
 					<tbody>';
-
-
 						$ThanhPhan = explode("*part*",$myArraySoLanLoi[$j]);
 						array_shift($ThanhPhan);
 
@@ -124,12 +122,7 @@
 						echo'</tbody>
 				</table></div>';
 					}
-
 				}
-
-
-
-
 			}else
 				echo '<h4><ins>Giấy tờ đã nhận:</ins></h4><p>Không</p>';?>
 

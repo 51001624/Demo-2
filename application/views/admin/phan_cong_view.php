@@ -11,6 +11,7 @@
 
 
             <div id="eventContent"  style="display:none;">
+                <i style="font-weight: bold; font-style: italic;">Tên công việc:</i> <span id="nameTask"></span><br>
                 <i style="font-weight: bold; font-style: italic;">Mô tả công việc:</i> <span id="description"></span><br>
                 <i style="font-weight: bold; font-style: italic;">Ngày bắt đầu:</i> <span id="startTime"></span><br>
                 <i style="font-weight: bold; font-style: italic;">Ngày kết thúc:</i> <span id="endTime"></span><br>
@@ -122,7 +123,8 @@
                           }else{
                               myStatus = "Đã hoàn thành được "+mystuff.phan_tram+"%";
                           }
-                         $('#description').html(event.title);
+                         $('#nameTask').html(event.title);
+                         $('#description').html(event.description);
                          $("#status").html(myStatus);
                          $("#eventContent").dialog({modal: true, title: "Chi tiết công việc", width: 450,
                              open: function(ui) {
